@@ -1,0 +1,10 @@
+public interface Printable {
+    void print();
+    //static print();
+    static String Sprint() {
+
+        return ;
+    }
+
+
+}
