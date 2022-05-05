@@ -1,4 +1,4 @@
 public interface Shape extends NamedObject {
-    void getPerimeter();
-    void getArea();
+    double getPerimeter();
+    double getArea();
 }
