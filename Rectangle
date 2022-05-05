@@ -37,18 +37,16 @@ public class Rectangle extends PrintableObject implements Shape{
     }
 
     @Override
-    public void getPerimeter() {
-
-        perimeter=(s1*2)+(s2*2);
-        return;
+    public double getPerimeter() {
+        return  perimeter=(s1*2)+(s2*2);
         //??
 
     }
 
     @Override
-    public void getArea() {
-        area= s1*s2;
-        return;
+    public double getArea() {
+
+        return area= s1*s2;
         //?
 
     }
