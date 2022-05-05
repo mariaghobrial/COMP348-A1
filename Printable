@@ -1,9 +1,10 @@
+import java.util.List;
+
 public interface Printable {
     void print();
     //static print();
-    static String Sprint() {
-
-        return ;
+    static void print(List<Printable> printableList) {
+        print(printableList);
     }
 
 
