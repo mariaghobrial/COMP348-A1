@@ -4,14 +4,14 @@ public class Circle extends PrintableObject implements Shape{
     private double circomferance;
     private String name;
     @Override
-    public void getPerimeter() {
-        circomferance= 2*Math.PI*radius;
+    public double getPerimeter() {
+        return circomferance= 2*Math.PI*radius;
 
     }
 
     @Override
-    public void getArea() {
-        area= Math.PI*radius*radius;
+    public double getArea() {
+       return area= Math.PI*radius*radius;
 
     }
 
