@@ -2,7 +2,7 @@ public class Circle extends PrintableObject implements Shape{
     private double radius;
     private double area;
     private double circomferance;
-    private String name;
+   // private String name;
     @Override
     public double getPerimeter() {
         return circomferance= 2*Math.PI*radius;
@@ -22,7 +22,7 @@ public class Circle extends PrintableObject implements Shape{
         radius=0.0;
         area=0.0;
         circomferance=0.0;
-        name="";
+       // name="";
     }
 
     /**
@@ -49,14 +49,13 @@ public class Circle extends PrintableObject implements Shape{
         return radius;
     }
 
-    @Override
+
     public String getName() {
-        return name.toUpperCase();
+        return this.getClass().getSimpleName().toUpperCase();
     }
 
-    @Override
     public String toString() {
-        return "The shape is" + getName() + ", with radius " + getRadius() ;
+        return  getName() + ", " + getRadius() ;
     }
     public static Circle parse(String in){
         String [] strArr = null;
