@@ -13,7 +13,7 @@ public class testingQ1 {
         String choice="shapes";
         String value="";
         String strArr[]=null;
-        ArrayList<Shape>shapes= null;
+        ArrayList<Shape>shapes= new ArrayList<Shape>();
 
         Scanner inputStream = null;
         File f1 = new File(choice);
@@ -21,7 +21,7 @@ public class testingQ1 {
             if (f1.exists())
                 inputStream = new Scanner(new FileInputStream(f1));
         } catch (FileNotFoundException e) {
-            System.out.println("Could not open/create output file");
+            System.out.println("Could not open file");
             try {
                 inputStream.close();//gives null pointer exception
             } catch (NullPointerException u) {
@@ -32,16 +32,21 @@ public class testingQ1 {
             value=inputStream.nextLine();
             strArr=value.split(",");
 
-        }
-        for (int i=0; i<strArr.length;i++){
-            if (strArr[i].equals("Circle")){
-                Circle c= new Circle();
-                shapes.set(i, c);
-            }else if (strArr[i].equals("Rectangle")){
-                Rectangle r= new Rectangle();
-                shapes.set(i, r);
+            for (int i=0; i<strArr.length;i++){
+                if (strArr[i].equals("Circle")){
+                    String rad= strArr[i+1];
+                    Circle c= new Circle(Double.parseDouble(rad));
+                    shapes.add(c);
+                }else if (strArr[i].equals("Rectangle")){
+                    String s1= strArr[i+1];
+                    String s2= strArr[i+2];
+                    Rectangle r= new Rectangle(Double.parseDouble(s1),Double.parseDouble(s2));
+                    shapes.add(r);
+                }
             }
+
         }
+
         // Compare shape objects, Sort shape by name and area
         Collections.sort(shapes, new Comparator<Shape>() {
             public int compare(Shape shape1, Shape shape2) {
