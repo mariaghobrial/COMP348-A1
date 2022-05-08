@@ -1,0 +1,62 @@
+#include <iostream>
+//fct that returns min element in an array
+float min(float arr[], int size){
+    float temp=arr[0];
+
+    for (int i=0; i<size;i++){
+        if(temp>arr[i]) {
+         temp=arr[i];
+      }
+
+    }
+    return temp;
+}
+//fct that returns max element in an array
+float max(float arr[], int size){
+    float temp=arr[0];
+
+    for (int i=0; i<size;i++){
+        if(temp<arr[i]) {
+         temp=arr[i];
+      }
+
+    }
+    return temp;
+}
+//fct that returns the sum of the elements in an array
+float sum(float arr[], int size) {
+     int sum = 0; 
+
+    for (int i = 0; i < size; i++) {
+        sum += arr[i];
+    }
+     
+  
+    return sum; 
+}
+//fct that returns the sum of the elements in an array
+float avg(float a[], int size)
+{
+    
+    int sum = 0;
+    for (int i=0; i<size; i++)
+       sum += a[i];
+ 
+    return sum/size;
+}
+
+float pseudo_avg(float min, float max){
+    
+
+}
+
+
+
+
+
+int main()
+{
+    std::cout << "Hello World" << std::endl;
+    std::cout << "hiiiiiiiiii" << std::endl;
+    std::cout << "hiiiiiiiiii" << std::endl;
+}
