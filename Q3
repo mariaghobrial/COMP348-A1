@@ -44,13 +44,12 @@ float avg(float a[], int size)
  
     return sum/size;
 }
-
-float pseudo_avg(float min, float max){
+//fct that returns the avg of max and min of an array
+float pseudo_avg(float arr[], int size){
+    float avg= max(arr, size)+ min(arr,size);
+    return avg/2;
     
-
 }
-
-
 
 
 
