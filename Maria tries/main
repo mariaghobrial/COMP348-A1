@@ -1,0 +1,94 @@
+#include <stdio.h>
+//#include "AGGREGATE1.H"
+
+float min(float arr[], int size);
+float max(float arr[], int size);
+float sum(float arr[], int size);
+float avg(float arr[], int size);
+float pseudo_avg(float arr[], int size);
+
+
+
+int main()
+{
+    float (*aggregates[5])(float arr[], int) = {min, max, sum, avg, pseudo_avg};
+
+    float arr1[5]={2.4, 5.6, 2.2, 3.4,8.9};
+    float arr2[10]={1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0};
+    // iterates through the array of functions and calls each function on the two sample arrays you defined
+    for (int i=0; i<5 ;i++){
+        aggregates[i] (arr1, 5);
+        aggregates[i] (arr2,10);
+
+    }
+
+    //float (*func_ptr[5])(float arr[], int size) = {min, max, sum, avg, pseudo_avg};
+    
+  
+}
+
+//fct that returns min element in an array
+float min(float arr[], int size){
+
+        float temp=arr[0];
+
+        for (int i=0; i<size;i++){
+            if(temp>arr[i]) {
+            temp=arr[i];
+        }
+
+        }
+        printf("The min is: %f\n",temp);
+        return temp;
+
+        
+   
+}
+//fct that returns max element in an array
+float max(float arr[], int size){
+    
+    float temp=arr[0];
+
+    for (int i=0; i<size;i++){
+        if(temp<arr[i]) {
+         temp=arr[i];
+      }
+
+    }
+      printf("The max is: %f\n",temp);
+    return temp;
+}
+//fct that returns the sum of the elements in an array
+float sum(float arr[], int size) {
+    
+     int sum = 0; 
+
+    for (int i = 0; i < size; i++) {
+        sum += arr[i];
+    }
+      printf("The sum is: %d\n",sum);
+     
+    return sum; 
+}
+//fct that returns the sum of the elements in an array
+float avg(float arr[], int size){
+    
+    int sum = 0;
+    for (int i=0; i<size; i++)
+       sum += arr[i];
+
+      printf("The average is: %d\n",sum/size);
+ 
+    return sum/size;
+}
+
+   
+//fct that returns the avg of max and min of an array
+float pseudo_avg(float arr[], int size){
+    
+    float avg= max(arr, size)+ min(arr,size);
+      printf("The pseudo avg is: %f\n",avg/2);
+    return avg/2;
+    
+}
+
