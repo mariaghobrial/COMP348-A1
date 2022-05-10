@@ -92,3 +92,123 @@ float pseudo_avg(float arr[], int size){
     
 }
 
+  typedef enum { 
+      ATOM,
+      LIST 
+    } eltype;
+
+      typedef char atom;
+      struct _listnode;
+
+      typedef struct {
+        eltype type;
+        union {
+          atom a;
+          struct _listnode* l;
+        };
+      } element;
+
+      typedef struct _listnode {
+        element el;
+        struct _listnode* next;
+      } * list;
+      const element NIL = { .type=LIST, .l=NULL };
+
+
+      element aasel(atom a){
+            element content;
+            content.type = ATOM; //setting element to be type atom
+            content.a = a;
+            return content;
+
+      }
+
+      element lasel(list l) {
+        element data;
+        data.type = LIST; //setting element to be type list
+        data.l = l;
+        return data; //returns the content as a LIST
+      }
+
+      element car(element e) {
+        if (e.type != LIST) {
+        return NIL;
+       }
+       return e.l->el; //e.next points to next node
+      }
+
+      list cdr(element e) {
+        if (e.type != LIST || e.l == NULL) { //if e is not a LIST or if e.next == null
+            return NULL;
+        }
+
+        return e.l->next; //returns the tail of the list
+     }
+
+     list cddr(element e) {
+       return cdr(lasel(cdr(e)));
+     }
+
+     list cons(element e, list l) {
+        list first_ele = (list)malloc(sizeof(struct _listnode));
+
+        first_ele->el = car(e);
+        first_ele->next = l;
+        return first_ele;
+     }
+
+     list append(list l1, list l2) {
+        list newList = NULL;
+
+        //list it = l1;
+        while (l1 != NULL) {
+            insert(&newList, l1->el);
+            l1 = l1->next;
+        }
+
+       // list it2 = l2;
+        while (l2 != NULL) {
+            insert(&newList, l2->el);
+            l2 = l2->next;
+        }
+
+        return newList;
+    }
+    void freeList(list l1) {
+       // list it = l;
+
+        while (l1 != NULL) {
+            if (l1->el.type == LIST) {
+                freeList(l1->el.l);
+            }
+
+            list temp = l1->next;
+            free((void*)l1);
+            l1 = temp;
+        }
+    }
+    void print(element e) {
+        if (e.type == LIST && e.l == NULL) { //if its an empty list
+            printf(" NIL ");
+            return;
+        }
+
+        if (e.type == ATOM) {
+            printf(" %c ", e.a); //print the data
+        } else {
+            list current = e.l;//current=e.next
+            printf(" (");
+            while (current != NULL) {
+                print(current->el); //print next node
+                current = current->next; //moves pointer to next node
+            }
+            printf(") ");
+        }
+    }
+
+
+
+
+
+
+
