@@ -1,0 +1,108 @@
+#include <stdio.h>
+#include "ag.h"
+
+
+node * createLinkedList(int size);
+void printNode(node * head);
+
+
+int main()
+{
+   // float (*aggregates[5])(float arr[], int) = {min, max, sum, avg, pseudo_avg};
+
+    float arr1[5]={2.4, 5.6, 2.2, 3.4,8.9};
+    float arr2[10]={1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0};
+    // iterates through the array of functions and calls each function on the two sample arrays you defined
+    for (int i=0; i<5 ;i++){
+        aggregates[i] (arr1, 5);
+        aggregates[i] (arr2,10);
+
+    }
+
+    int size=0;
+   // char a="";
+    node *HEAD= NULL;
+    printf("Number of nodes is: ");
+    scanf("%d",&size);
+    HEAD= createLinkedList(size);
+    printNode(HEAD);
+    return 0;
+      
+
+
+
+    //float (*func_ptr[5])(float arr[], int size) = {min, max, sum, avg, pseudo_avg};
+    
+  
+}
+typedef enum { //type
+      CHAR,
+      LIST 
+    } type;
+
+typedef struct node{
+    // type type;
+     union t{
+          char data;
+          struct list; //or struct listnode
+        }t;
+   
+    struct node *next;
+
+}node;
+
+ typedef struct listnode {
+     //assume that the list only has char datatype and not another list
+        char datalist;
+        struct node *next;
+      } * list;
+
+node *createLinkedList (int size){
+    node *head=NULL;
+    node *temp= NULL;
+    node *p= NULL;
+    
+    for (int i=0; i<size;i++){
+        temp= (node*)malloc(sizeof(node)); //create node
+        printf("what is the data of this node:", i+1);
+       // scanf ("%d",&(temp->t.data)); //temp.data
+         if (scanf ("%d",&(temp->t)) == LIST){
+             int size=0;
+             printf("size of the 2nd linked list : ");
+             scanf("%d",&size);
+             *createLinkedList(size);
+    
+        }else if (scanf ("%d",&(temp->t)) == CHAR){
+            temp->next= NULL;
+
+            if (head== NULL){
+            head=temp;
+
+            }else{
+                p=head;
+                while(p->next != NULL){
+                    p=p->next;
+
+                }
+                p->next=temp;
+            
+        }
+            
+        }
+        
+
+    }
+    return head;
+}
+
+void printNode(node *head){
+    node *p=head;
+
+    while(p-> next != NULL){
+        printf("\t%d",p->t); //?????
+        p=p->next;
+
+    }
+
+}
+
