@@ -1,0 +1,233 @@
+#include <stdio.h>
+//#include "AGGREGATE1.H"
+
+float min(float arr[], int size);
+float max(float arr[], int size);
+float sum(float arr[], int size);
+float avg(float arr[], int size);
+float pseudo_avg(float arr[], int size);
+
+
+
+int main()
+{
+    float (*aggregates[5])(float arr[], int) = {min, max, sum, avg, pseudo_avg};
+
+    float arr1[5]={2.4, 5.6, 2.2, 3.4,8.9};
+    float arr2[10]={1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0};
+    // iterates through the array of functions and calls each function on the two sample arrays you defined
+    for (int i=0; i<5 ;i++){
+        aggregates[i] (arr1, 5);
+        aggregates[i] (arr2,10);
+
+    }
+
+    //float (*func_ptr[5])(float arr[], int size) = {min, max, sum, avg, pseudo_avg};
+    
+  
+}
+
+//fct that returns min element in an array
+float min(float arr[], int size){
+
+    if (arr == NULL || size <0){
+        printf("FATAL ERROR IN LINE", __LINE__);
+       // printf("program terminated", _ab);
+
+
+    }
+
+        float temp=arr[0];
+
+        for (int i=0; i<size;i++){
+            if(temp>arr[i]) {
+            temp=arr[i];
+        }
+
+        }
+        printf("The min is: %f\n",temp);
+        return temp;
+
+        
+   
+}
+//fct that returns max element in an array
+float max(float arr[], int size){
+    if (arr == NULL || size <0){
+        printf("FATAL ERROR IN LINE", __LINE__);
+
+    }
+    
+    float temp=arr[0];
+
+    for (int i=0; i<size;i++){
+        if(temp<arr[i]) {
+         temp=arr[i];
+      }
+
+    }
+      printf("The max is: %f\n",temp);
+    return temp;
+}
+//fct that returns the sum of the elements in an array
+float sum(float arr[], int size) {
+     if (arr == NULL || size <0){
+        printf("FATAL ERROR IN LINE", __LINE__);
+
+    }
+    
+     int sum = 0; 
+
+    for (int i = 0; i < size; i++) {
+        sum += arr[i];
+    }
+      printf("The sum is: %d\n",sum);
+     
+    return sum; 
+}
+//fct that returns the sum of the elements in an array
+float avg(float arr[], int size){
+     if (arr == NULL || size <0){
+        printf("FATAL ERROR IN LINE", __LINE__);
+
+    }
+    
+    int sum = 0;
+    for (int i=0; i<size; i++)
+       sum += arr[i];
+
+      printf("The average is: %d\n",sum/size);
+ 
+    return sum/size;
+}
+
+   
+//fct that returns the avg of max and min of an array
+float pseudo_avg(float arr[], int size){
+     if (arr == NULL || size <0){
+        printf("FATAL ERROR IN LINE", __LINE__);
+
+    }
+    
+    float avg= max(arr, size)+ min(arr,size);
+      printf("The pseudo avg is: %f\n",avg/2);
+    return avg/2;
+    
+}
+
+  typedef enum { //type
+      ATOM,
+      LIST 
+    } type;
+
+      typedef char atom;
+      struct _listnode;
+
+      typedef struct { //element
+        type type; //atom or list
+        union {
+          atom a;
+          struct _listnode* listptr;
+        };
+      } element;
+ 
+
+      const element NIL = { .type=LIST, .listptr=NULL };
+
+      element aasel(atom a){ //atom -> type char
+            element content;
+            content.type = ATOM; //setting element to be type atom
+            content.a = a;
+            return content;
+
+      }
+
+      element lasel(list l) {
+        element data;
+        data.type = LIST; //setting element to be type list
+        data.listptr = l;
+        return data; //returns the content as a LIST
+      }
+
+      element car(element e) {
+        if (e.type != LIST) {
+        return NIL;
+       }
+       return e.listptr->el; //e.next points to next node //SUPPOSED TO POINT TO HEAD
+      }
+
+      list cdr(element e) {
+        if (e.type != LIST || e.listptr == NULL) { //if e is not a LIST or if e.next == null
+            return NULL;
+        }
+
+        return e.listptr->next; //returns the tail of the list
+     }
+
+     list cddr(element e) {
+       return cdr(lasel(cdr(e)));
+     }
+
+     list cons(element e, list l) {
+        list first_ele = (list)malloc(sizeof(struct _listnode));
+
+        first_ele->el = car(e);
+        first_ele->next = l;
+        return first_ele;
+     }
+
+     list append(list l1, list l2) {
+        list newList = NULL;
+
+        //list it = l1;
+        while (l1 != NULL) {
+            insert(&newList, l1->el);
+            l1 = l1->next;
+        }
+
+       // list it2 = l2;
+        while (l2 != NULL) {
+            insert(&newList, l2->el);
+            l2 = l2->next;
+        }
+
+        return newList;
+    }
+    void freeList(list l1) {
+       // list it = l;
+
+        while (l1 != NULL) {
+            if (l1->el.type == LIST) {
+                freeList(l1->el.listptr);
+            }
+
+            list temp = l1->next;
+            free((void*)l1);
+            l1 = temp;
+        }
+    }
+    void print(element e) {
+        if (e.type == LIST && e.listptr == NULL) { //if its an empty list
+            printf(" NIL ");
+            return;
+        }
+
+        if (e.type == ATOM) {
+            printf(" %c ", e.a); //print the data
+        } else {
+            list current = e.listptr;//current=e.next
+            printf(" (");
+            while (current != NULL) {
+                print(current->el); //print next node
+                current = current->next; //moves pointer to next node
+            }
+            printf(") ");
+        }
+    }
+
+
+
+
+
+
+
