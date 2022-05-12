@@ -1,5 +1,13 @@
+//
+//  main.c
+//  a1.comp348
+//
+//  Created by Maria Ghobrial on 2022-05-11.
+//
+
 #include <stdio.h>
 #include <stdlib.h>
+#include "AGGREGATE.H"
 
 typedef enum { //type
     ATOM,
@@ -18,6 +26,7 @@ typedef struct { //element
 } element;
 
 typedef struct _listnode {
+    type type;
     element el;
     struct _listnode* next;
 } *list;
@@ -36,34 +45,43 @@ void printlist(element e);
 void insert(list* root, element item);
 
 
-
-int main()
-{
-    list l= (list)malloc(sizeof(struct _listnode));
-    l.type=LIST;
-    element e;
-    e.a = 'e';
-    e.type=ATOM;
-    element d;
-    d.a = 'd';
-    d.type=ATOM;
-
-    cons(e, l);
-    cons(d, l);
+int main() {
+//    float (*aggregates[5])(float arr[], int) = {min, max, sum, avg, pseudo_avg};
+//
+//       float arr1[5]={2.4, 5.6, 2.2, 3.4,8.9};
+//       float arr2[10]={1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0};
+//       // iterates through the array of functions and calls each function on the two sample arrays you defined
+//       for (int i=0; i<5 ;i++){
+//           aggregates[i] (arr1, 5);
+//           aggregates[i] (arr2,10);
+//
+//       }
     
-    //printf("hello");
-    //printf("%c", e.a);
-   //printf("hello");
-    printlist(e);
-    printlist(d);
-    printlist(l.el);
+    list l = (list)malloc(sizeof(struct _listnode));
+        element l2;
+        l2.listptr = l;
 
+        //element * l2 = &l;
+        l2.type = LIST;
+        element e;
+        e.a = 'e';
+        e.type = ATOM;
+        element d;
+        d.a = 'd';
+        d.type = ATOM;
 
+        cons(e, l);
+        cons(d, l);
 
+        //printf("hello");
+        //printf("%c", e.a);
+       //printf("hello");
+       // printlist(e);
+        //printlist(d);
+        printlist(l2);
+    
 
 }
-
-
 
 element aasel(atom a) { //atom -> type char
     element content;
@@ -145,7 +163,7 @@ void printlist(element e) {
     else if (e.type == ATOM) {
         printf(" %c ", e.a); //print the data
     }
-    else {
+    else if (e.type== LIST){
         list current = e.listptr;//current=e.next
         printf(" (");
         while (current != NULL) {
