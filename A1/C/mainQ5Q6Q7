@@ -1,0 +1,249 @@
+//  main.c
+//  a1.comp348
+//  Created by Maria Ghobrial on 2022-05-11.
+
+#include <stdio.h>
+#include <stdlib.h>
+#include "AGGREGATE.H"
+
+
+typedef enum { //type
+    ATOM,
+    LIST
+} type;
+
+typedef char atom;
+struct _listnode;
+
+typedef struct { //element
+    type type; //ATOM or LIST
+    union {
+        atom a;
+        struct _listnode* listptr;
+    };
+} element;
+
+typedef struct _listnode {
+    type type;
+    element el;
+    struct _listnode* next;
+} *list;
+
+const element NIL = { .type = LIST, .listptr = NULL };
+
+//fct declerations for Q5,Q6, Q7
+element aasel(atom a);
+element lasel(list l);
+element car(element e);
+list cdr(element e);
+list cddr(element e);
+list cons(element e, list L);
+list append(list l1, list l2);
+void freelist(list L1);
+void printlist(element e);
+void insert(list* head, element content);
+
+
+int main() {
+    
+    //*******CREATION OF THE NODES*************//
+    
+    //-------------------------atom a------------------------//
+    //L-> creating the first node of the list that contains 1st element 'a'
+    list LA = (list)malloc(sizeof(struct _listnode));
+    LA->el.type = ATOM;  LA->el.a = 'a';
+    
+    
+    //linking node that contains element'a' to the next node that will contain the next list-----------//
+    list L2 = (list)malloc(sizeof(struct _listnode));
+    L2->el.type = LIST;  LA->next = L2;
+    
+    
+    //-------------------------atom b------------------------//
+    //LB-> list that is contained in node 2----------Contains element  'b'--------------//
+    list LB = (list)malloc(sizeof(struct _listnode));
+    L2->el.listptr = LB;
+    LB->el.type = ATOM;
+    LB->el.a = 'b';
+    
+    
+    //-------------------------atom c------------------------//
+    //LC-> node that contains atom 'c' (element b.next) which points to null-------//
+    list LC = (list)malloc(sizeof(struct _listnode));
+    LC->el.type = ATOM;
+    LC->el.a = 'c';
+    LC->next = NULL;
+    
+    
+    //-------------------------atom d------------------------//
+    //LD ->node that points to node that contains element 'e'
+    list LD = (list)malloc(sizeof(struct _listnode));
+    LD->el.type = ATOM;  LD->el.a = 'd';
+    
+    
+    //-------------------------atom e------------------------//
+    //LE ->node that is the tail (last element of the list), which points to NULL
+    list LE = (list)malloc(sizeof(struct _listnode));
+    LE->el.type = ATOM;
+    LE->el.a = 'e';
+    LE->next = NULL;
+    
+    //LINKING ALL THE NODES TOGETHER
+    LB->next = LC; //b pointing to c
+    L2->next = LD; //list BC pointing to D
+    LD->next = LE; // d pointing to e
+    
+    //---------Q6---------------//
+    //printing the linkedList
+    list current = (list)malloc(sizeof(struct _listnode));
+    current = LA;
+    printf("(");
+    while (current != NULL) {
+        printlist(current->el);
+        current = current->next;
+        
+    }
+    printf(")\n");
+    
+    //---------------Q7---------------//
+    //printing car and cdr , AND car(car())
+    
+    printf("%c\n", car(lasel(LA)).a);
+    
+    list current2 = (list)malloc(sizeof(struct _listnode));
+    current2 = cdr(lasel(LA));
+    printf("(");
+    while (current2 != NULL) {
+        printlist(current2->el);
+        current2 = current2->next;
+        
+    }
+    printf(")\n");
+    
+    
+    printlist(car(car(lasel(L2))));
+    
+    // freeing the memory b4 termination of the program
+    freelist(LA);
+    freelist(L2);
+    freelist(LB);
+    freelist(LC);
+    freelist(LD);
+    freelist(LE);
+    freelist(current);
+    freelist(current2);
+    
+    return 0;
+    
+}
+//fct that returns an element of type ATOM
+element aasel(atom a) { //atom -> type char
+    element content;
+    content.type = ATOM; //setting element to be type atom
+    content.a = a;
+    return content;
+    
+}
+//fct that returns an element of type LIST
+element lasel(list l) {
+    element data;
+    data.type = LIST; //setting element to be type list
+    data.listptr = l;
+    return data; //returns the content as a LIST
+}
+//fct that returns the head of the LIST
+element car(element e) {
+    if (e.type != LIST) {
+        return NIL;
+    }
+    e.listptr->el.type = ATOM;
+    return e.listptr->el; // returing 1st element of the list
+}
+//fct that returns the LIST without the head
+list cdr(element e) {
+    if (e.type != LIST || e.listptr == NULL) { //if e is not a LIST or if e.next == null
+        return NULL;
+    }
+    
+    return e.listptr->next; //returns the tail of the list
+}
+//fct that returns crd(cdr())
+list cddr(element e) {
+    return cdr(lasel(cdr(e)));
+}
+
+//fct that adds element at the head at the provided list L
+list cons(element e, list L) {
+    list first_element = (list)malloc(sizeof(struct _listnode));//initializing a list
+    
+    first_element->el = car(e);  //first element points to element = head
+    first_element->next = L; //first_element.next = List, SHOULDNT IT BE first_element->next= cdr(e) ...????
+    
+    return first_element; //returning first element as a list
+}
+//fct that joins 2 lists together (shallow copy)
+list append(list l1, list l2) {
+    list newL = NULL;
+    
+    while (l1 != NULL) {
+        insert(&newL, l1->el);
+        l1 = l1->next;
+    }
+    
+    while (l2 != NULL) {
+        insert(&newL, l2->el);
+        l2 = l2->next;
+    }
+    
+    return newL;
+}
+//frees the memory allocated for all element in the list
+void freelist(list L1) {
+    
+    while (L1 != NULL) {
+        if (L1->el.type == LIST) {
+            freelist(L1->el.listptr);
+        }
+        
+        list temp = L1->next;
+        free((void*)L1);
+        L1 = temp;
+    }
+}
+//fct that prints the element.
+//if element=ATOM, prints the char, else if element= LIST, recursiverly print elements of the list
+void printlist(element e) {
+    if (e.type == LIST && e.listptr == NULL) { //if its an empty list
+        printf(" NIL ");
+        return;
+    }
+    else if (e.type == ATOM) {
+        printf(" %c ", e.a); //print the data
+    }
+    else if (e.type == LIST && e.listptr != NULL) {
+        list current = e.listptr;
+        printf("( ");
+        while (current != NULL) {
+            printlist(current->el); //print next node el->element of the list
+            current = current->next; //moves pointer to next node
+        }
+        printf(" )");
+    }
+}
+//fct used in append fct to add elements in the combined list
+void insert(list* head, element content) {
+    list temp = (list)malloc(sizeof(struct _listnode));
+    list ptr;
+    temp->el = content;
+    temp->next = NULL;
+    
+    if (*head == NULL)
+        *head = temp;
+    else {
+        ptr = *head;
+        while (ptr->next != NULL)
+            ptr = ptr->next;
+        ptr->next = temp;
+    }
+}
+
