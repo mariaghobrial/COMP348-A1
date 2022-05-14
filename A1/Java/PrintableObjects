@@ -1,0 +1,13 @@
+abstract class PrintableObject implements NamedObject,Printable {
+
+    @Override
+    public String toString() {
+        return getName();
+    }
+
+    @Override
+    public void print() {
+        System.out.println(toString());
+
+    }
+}
