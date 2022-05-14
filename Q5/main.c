@@ -1,13 +1,5 @@
-//
-//  main.c
-//  a1.comp348
-//
-//  Created by Maria Ghobrial on 2022-05-11.
-//
-
 #include <stdio.h>
 #include <stdlib.h>
-#include "AGGREGATE.H"
 
 typedef enum { //type
     ATOM,
@@ -33,6 +25,7 @@ typedef struct _listnode {
 
 const element NIL = { .type = LIST, .listptr = NULL };
 
+//fct declerations for Q5,Q6, Q7
 element aasel(atom a);
 element lasel(list l);
 element car(element e);
@@ -40,46 +33,111 @@ list cdr(element e);
 list cddr(element e);
 list cons(element e, list l);
 list append(list l1, list l2);
-void lfreer(list l);
+void freelist(list l);
 void printlist(element e);
 void insert(list* root, element item);
 
 
 int main() {
-//    float (*aggregates[5])(float arr[], int) = {min, max, sum, avg, pseudo_avg};
-//
-//       float arr1[5]={2.4, 5.6, 2.2, 3.4,8.9};
-//       float arr2[10]={1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0};
-//       // iterates through the array of functions and calls each function on the two sample arrays you defined
-//       for (int i=0; i<5 ;i++){
-//           aggregates[i] (arr1, 5);
-//           aggregates[i] (arr2,10);
-//
-//       }
-    
-    list l = (list)malloc(sizeof(struct _listnode));
-        element l2;
-        l2.listptr = l;
 
-        //element * l2 = &l;
-        l2.type = LIST;
-        element e;
-        e.a = 'e';
-        e.type = ATOM;
-        element d;
-        d.a = 'd';
-        d.type = ATOM;
+    list L = (list)malloc(sizeof(struct _listnode));
+    L->el.type = ATOM;
+    L->el.a = 'a';
 
-        cons(e, l);
-        cons(d, l);
+    list L2 = (list)malloc(sizeof(struct _listnode));
+    L2->el.type = LIST;
+    L->next = L2;
 
-        //printf("hello");
-        //printf("%c", e.a);
-       //printf("hello");
-       // printlist(e);
-        //printlist(d);
-        printlist(l2);
-    
+    list LB = (list)malloc(sizeof(struct _listnode));
+    L2->el.listptr = LB;
+    LB->el.type = ATOM;
+    LB->el.a = 'b';
+
+    list LC = (list)malloc(sizeof(struct _listnode));
+    LC->el.type = ATOM;
+    LC->el.a = 'c';
+    LC->next = NULL;
+
+    list LD = (list)malloc(sizeof(struct _listnode));
+    LD->el.type = ATOM;
+    LD->el.a = 'd';
+
+    list LE = (list)malloc(sizeof(struct _listnode));
+    LE->el.type = ATOM;
+    LE->el.a = 'e';
+    LE->next = NULL;
+
+    LB->next = LC;
+    L2->next = LD;
+    LD->next = LE;
+ 
+
+    list current = (list)malloc(sizeof(struct _listnode));
+    current = L;
+    printf("(");
+    while (current != NULL) {
+        printlist(current->el);
+        current = current->next;
+
+    }
+
+    printf(")\n");
+
+    printf("%c\n", car(lasel(L)).a);
+
+    list current2 = (list)malloc(sizeof(struct _listnode));
+    current2 = cdr(lasel(L));
+    printf("(");
+    while (current2 != NULL) {
+        printlist(current2->el);
+        current2 = current2->next;
+
+    }
+    printf(")\n");
+    printlist(car(car(lasel(L))));
+
+    freelist(L);
+    freelist(L2);
+    freelist(LB);
+    freelist(LC);
+    freelist(LD);
+    freelist(LE);
+    freelist(current);
+    freelist(current2);
+
+    return 0;
+
+
+
+
+
+    //---------element L2--------------//
+    //element L2;
+    // L2.listptr = L; //element.next=List L
+     //element * l2 = &l;
+    //L2.type = LIST; //L2= LIST
+    //---------elemeent e----------------//
+    //element e;
+    //e.a = 'e';
+    //e.type = ATOM;
+    //-------------element d------------------//
+    //element d;
+    //d.a = 'd';
+    //d.type = ATOM;
+
+    // L2.listptr=cons(d,cons(e, L)); //retruns the rest of the list minus the head
+   // printf("Cons is:", cons(e, L));
+
+    //cons(d, L); //retruns the rest of the list minus the head
+
+     //printf("hello");
+     //printf("%c", e.a);
+    //printf("hello");
+    // printlist(e);
+     //printlist(d);
+    // L2.type->el= ATOM;
+    // printlist(L2);
+
 
 }
 
@@ -102,6 +160,7 @@ element car(element e) {
     if (e.type != LIST) {
         return NIL;
     }
+    e.listptr->el.type = ATOM;
     return e.listptr->el; //e.next points to next node //SUPPOSED TO POINT TO HEAD
 }
 
@@ -117,12 +176,13 @@ list cddr(element e) {
     return cdr(lasel(cdr(e)));
 }
 
-list cons(element e, list l) {
-    list first_ele = (list)malloc(sizeof(struct _listnode));
+list cons(element e, list L) {
+    list first_element = (list)malloc(sizeof(struct _listnode));//initializing a list
 
-    first_ele->el = car(e);
-    first_ele->next = l;
-    return first_ele;
+    first_element->el = car(e);  //first element points to element = head
+    first_element->next = L; //first_element.next = List, SHOULDNT IT BE first_element->next= cdr(e) ...????
+
+    return first_element; //returning first element as a list
 }
 
 list append(list l1, list l2) {
@@ -142,12 +202,12 @@ list append(list l1, list l2) {
 
     return newList;
 }
-void freeList(list l1) {
+void freelist(list l1) {
     // list it = l;
 
     while (l1 != NULL) {
         if (l1->el.type == LIST) {
-            freeList(l1->el.listptr);
+            freelist(l1->el.listptr);
         }
 
         list temp = l1->next;
@@ -163,14 +223,14 @@ void printlist(element e) {
     else if (e.type == ATOM) {
         printf(" %c ", e.a); //print the data
     }
-    else if (e.type== LIST){
+    else if (e.type == LIST && e.listptr != NULL) {
         list current = e.listptr;//current=e.next
-        printf(" (");
+        printf("( ");
         while (current != NULL) {
-            printlist(current->el); //print next node
+            printlist(current->el); //print next node el->element of the list
             current = current->next; //moves pointer to next node
         }
-        printf(") ");
+        printf(" )");
     }
 }
 
@@ -189,4 +249,3 @@ void insert(list* root, element item) {
         ptr->next = temp;
     }
 }
-
