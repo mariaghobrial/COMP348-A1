@@ -1,0 +1,7 @@
+public interface NamedObject {
+     //String name=""; //?
+     default String getName(){
+          return this.getClass().getSimpleName();
+     }
+
+}
