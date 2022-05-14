@@ -1,0 +1,73 @@
+public class Circle extends PrintableObject implements Shape{
+    private double radius;
+    private double area;
+    private double circomferance;
+   // private String name;
+    @Override
+    public double getPerimeter() {
+        return circomferance= 2*Math.PI*radius;
+
+    }
+
+    @Override
+    public double getArea() {
+       return area= Math.PI*radius*radius;
+
+    }
+
+    /**
+     * default constructor
+     */
+    public Circle(){
+        radius=0.0;
+        area=0.0;
+        circomferance=0.0;
+       // name="";
+    }
+
+    /**
+     * Parametrized constructor
+     * @param newRad
+     */
+    public Circle(double newRad){
+        radius=newRad;
+    }
+
+    /**
+     * Copy constructor
+     * @param c
+     */
+    public Circle(Circle c){
+        this.radius=c.radius;
+    }
+    //---------setters and getters------------//
+    public void setRadius(double radius) {
+        this.radius = radius;
+    }
+
+    public double getRadius() {
+        return radius;
+    }
+
+
+    public String getName() {
+        return this.getClass().getSimpleName().toUpperCase();
+    }
+
+    public String toString() {
+        return  getName() + ", " + getRadius() ;
+    }
+    public static Circle parse(String in){
+        String [] strArr = null;
+        String rad="";
+        strArr=in.split(",");
+        strArr[1]=rad;
+
+        Circle c=new Circle(Double.parseDouble(rad));
+
+        //return an Circle object that is initialized to the sizes from the string input
+        return c;
+
+    }
+
+}
