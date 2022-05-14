@@ -1,0 +1,8 @@
+Circle,1.0
+TRIANGLE,3.4
+RECTANGLE, 3.0,6.7
+Rectangle, 2.0, 4.5
+CircLe, 5.0
+Circle, 3.4
+Circle, 8.9
+Rectangle, 5.0, 6.5
