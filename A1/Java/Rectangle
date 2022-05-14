@@ -1,0 +1,91 @@
+public class Rectangle extends PrintableObject implements Shape{
+
+    private double s1;
+    private double s2;
+    private double area;
+    private double perimeter;
+
+    /**
+     * Default constructor
+     */
+    public Rectangle(){
+        s1=0.0;
+        s2=0.0;
+        area=0.0;
+        perimeter=0.0;
+    }
+
+    /**
+     * Parametrized constructor
+     * @param newS1
+     * @param newS2
+     */
+    public Rectangle(double newS1, double newS2){
+        s1=newS1;
+        s2=newS2;
+
+    }
+
+    /**
+     * Copy constructor
+     * @param r
+     */
+    public Rectangle(Rectangle r){
+        this.s1=r.s1;
+        this.s2=r.s2;
+
+    }
+
+    @Override
+    public double getPerimeter() {
+        return  perimeter=(s1*2)+(s2*2);
+
+
+    }
+
+    @Override
+    public double getArea() {
+
+        return area= s1*s2;
+        //?
+
+    }
+    //----------setters and getters-----------------//
+
+    public void setS1(double s1) {
+        this.s1 = s1;
+    }
+
+    public void setS2(double s2) {
+        this.s2 = s2;
+    }
+
+    public double getS1() {
+        return s1;
+    }
+
+    public double getS2() {
+        return s2;
+    }
+
+    @Override
+    public String toString() {
+        return  getName() + "," + s1+","+s2 ;
+    }
+
+    public static Rectangle parse(String in){
+        String [] strArr = null;
+        String s1="";
+        String s2="";
+
+        strArr=in.split(",");
+        strArr[1]=s1;
+        strArr[2]=s2;
+        Rectangle r=new Rectangle(Double.parseDouble(s1),Double.parseDouble(s2));
+
+        //return an Rectangle object that is initialized to the sizes from the string input
+        return r;
+
+    }
+
+}
