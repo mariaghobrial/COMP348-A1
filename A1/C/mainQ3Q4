@@ -1,0 +1,28 @@
+//
+//  main.c
+//  Q3Q4a1_comp348
+//
+//  Created by Maria Ghobrial on 2022-05-13.
+//
+
+#include <stdio.h>
+#include <stdlib.h>
+#include "AGGREGATE.H"
+
+
+int main() {
+    //fct pointer
+    float (*aggregates[5])(float arr[], int size) = {min, max, sum, avg, pseudo_avg};
+    
+    // float arr1[]= {};
+    float arr1[5]={2.4, 5.6, 2.2, 3.4,8.9};
+    // float arr2[]={};
+    float arr2[10]={1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0};
+    // iterates through the array of functions and calls each function on the two sample arrays you defined
+    for (int i=0; i<5 ;i++){
+        aggregates[i] (arr1, 5);
+        aggregates[i] (arr2,10);
+        
+    }
+    
+}
