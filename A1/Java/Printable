@@ -1,0 +1,11 @@
+import java.util.List;
+
+public interface Printable {
+    void print();
+    //static print();
+    static void print(List<Printable> printableList) {
+        print(printableList);
+    }
+
+
+}
