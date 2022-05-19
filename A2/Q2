@@ -1,0 +1,25 @@
+
+(defun sub-list2 (list from &optional (to NIL))
+
+    (cond
+       ((null list)  '()) 
+       ((null to) (sub-list2 list from (list-length list)))
+       ((> from to) '())
+       ((= from 0) (sub-list2 list 1 to))
+       ((> from 1) (sub-list2 (cdr list) (1- from) (1- to)))
+       ((> to (list-length list)) (sub-list2 list from 3))
+       ((or (< from 0) (> from (list-length list))) '())
+       (t(cons (car list) (sub-list2 (cdr list) from (1- to))))
+
+    ) ;cond
+
+
+);defun
+
+(print (sub-list2 '(1 4 10 7 9) 2 3))
+(print (sub-list2 '(1 4 10) 2))
+(print (sub-list2 '(1 7 12) 1 4))
+(print (sub-list2 '(1 7 12) 0 1))
+(print (sub-list2 '(1 6 12) 4 2))
+;(print (sub-list2 '(1 6 12 9 0 10 11) 4 6))
+(print (sub-list2 '(1 6 12)))
