@@ -30,3 +30,51 @@
 (write (depth '((2))))
 (write-line "")
 (write (depth '((2)(3 (6))(4))))
+
+-------------------------------------------------- new version of the code still not working-------------------------------------
+;(defun depth (element)
+           
+        ;   (if (atom element) 0 
+               ;; else find the maximum depth of all inner list by calling depth
+               ;; function recursively and add 1 to it
+             ;  (1+ (apply (function max) (mapcar (function depth) element))))
+    
+;);end of defun
+
+(defun depth (element)
+    (setq k ( 
+               (lambda () (apply (function max) (mapcar (function depth) element)) ) 
+             )
+    )
+    
+     (cond (
+            ( (lambda (atom element) 0) )
+            ( (lambda () (+ 1 k)) )
+           
+          
+           )
+        )
+    
+    ;(setq k ( (lambda ()
+                   ;   ( (lambda () (apply ( function max) (mapcar (function depth) element))) )
+                     ;  )
+              ; )
+           ; )
+);defun
+    
+   
+    
+   
+          
+      
+       
+ 
+(write (depth NIL))
+(write-line "")
+(write (depth 1))
+(write-line "")
+(write (depth '(1)))
+(write-line "")
+(write (depth '((2))))
+(write-line "")
+(write (depth '((2)(3 (6))(4))))
