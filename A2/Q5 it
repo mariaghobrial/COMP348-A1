@@ -1,0 +1,28 @@
+;tribonacci series - 0 0 1 1 2 4 7 13...
+(setq first 0)
+(setq second 0)
+(setq third 1)
+
+;(concatenate 'string "hello" "world")
+(defun tri(n)
+    (cond
+        ((= n 0) (print '()))
+        ((= n 1) (print first))
+        ((= n 2) (print (concatenate 'string "0 " "0")))
+        ((= n 3) (print (concatenate 'string "0 " "0 " "1")))
+        (t(helper n))
+     )
+ )
+
+(defun helper(n)
+        (setq size (- n 4))
+        (print first)(print second)(print third)
+        (loop for x from 0 to size
+            do( setq fourth (+ first second third))( print fourth)
+            do( setq first second)
+            do( setq second third)
+            do( setq third fourth)
+        )
+)
+
+(tri 0)
