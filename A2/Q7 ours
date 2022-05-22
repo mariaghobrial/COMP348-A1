@@ -1,0 +1,29 @@
+; number of sub trees
+; the root of subtree is > < 
+; size of cdr should be < 3
+; if () nill 0
+; binary(car (cdr))
+; binary (cdr(cdr))
+; setq left right
+; right=car(list)
+
+(defun binary-search (list)
+    (setq size (- (list-length list) 1))
+    (cond 
+        ((atom list) (let left list))
+        ((null list) '(hel))
+        ((> size 2) '(he))
+        (t(helper list))
+     ) 
+)
+
+(defun helper (list)
+    (print '(hello))
+    
+    (binary-search (car(cdr(list))));left side
+    (binary-search (car(cdr(cdr(list)))));right side
+)
+
+;(print (binary-search '()))
+(print (binary-search '(3 4 5)))
+;(print (binary-search '(7 ( 1 () ( 2 () () ) )( 8 () ( 9 () () ) ) ) )        )    
