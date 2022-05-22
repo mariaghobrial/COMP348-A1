@@ -1,0 +1,11 @@
+(defun binary (E tree)
+    (cond
+        ((null tree)(list E nil nil))
+        ((= E (car tree)) tree)
+        ((< E (car tree)) ( list (car tree) (binary E (cadr tree)) (caddr tree) )  )
+        (t( list (car tree) (cadr tree) (binary E (caddr tree))  )   )
+    )
+)
+
+(print (binary 3 '(3 (1 () ()))))
+;(print (binary 8 '(3 (1 () ()) (6 (4 () ())(7 () ())) (10 () (14 (13) ()))) ) )
