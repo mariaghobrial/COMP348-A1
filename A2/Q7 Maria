@@ -1,0 +1,35 @@
+;gnu clisp  2.49.60
+
+(print "Hello, world!")
+
+(defun binary (list)
+    (cond
+        ( (null list) '(F) )
+        ( (not(atom car list)) '(F) )
+        ;we want to check how many sub-trees does the root have
+        ( (< (list-length list) 3) 0); checks the number of subtrees
+        ;we want to traverse it to check if the root is < or > than its children
+       ; ( (> left-subtree list left-subtree (car (cdr(cdr list)))) '(T))
+     )
+ )
+; this will traverse the left-subtree of the list
+(defun left-subtree(list)
+ (cond 
+     ((null list) nil)
+     (t (car (cdr list)))
+ )
+)
+
+; this will traverse the right-subtree of the list
+(defun right-subtree(list)
+ (cond 
+     ((null list) nil)
+     (t (car (cdr (cdr list))))
+ )
+    
+)
+(setq list1 '(8 (3 (1 () ()) (6 (4 () ())(7 () ())))))
+
+(print (left-subtree (car(cdr list1))))
+(print (right-subtree list1))
+(print (left-subtree list1))
