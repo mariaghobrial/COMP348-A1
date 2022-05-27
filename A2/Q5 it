@@ -1,9 +1,7 @@
-;tribonacci series - 0 0 1 1 2 4 7 13...
 (setq first 0)
 (setq second 0)
 (setq third 1)
 
-;(concatenate 'string "hello" "world")
 (defun tri(n)
     (cond
         ((= n 0) (print '()))
@@ -25,4 +23,4 @@
         )
 )
 
-(tri 0)
+(tri 7)
