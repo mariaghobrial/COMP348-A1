@@ -3,7 +3,7 @@
     (cond
        ((null list)  '()) 
        ((null to) (sub-list3 list from (list-length list)))
-       ((= to from) (list (car list)) )
+       ((= to from) (list (car list)))
        ((> from to) (reverse2 (sub-list3 list to from)))
        ((= from 0) (sub-list3 list 1 to))
        ((> from 1) (sub-list3 (cdr list) (1- from) (1- to)))
@@ -24,8 +24,8 @@
  )
 
 ;(print (sub-list3 '(1 4 10) 2 3))
-(print (sub-list3 '(1 4 10) 3))
-;(print (sub-list2 '(1 7 12) 1 4))
+(print (sub-list3 '(1 4 10) 2))
+(print (sub-list3 '(1 7 12) 4 0))
 ;(print (sub-list2 '(1 7 12) 0 1))
 ;(print (sub-list2 '(1 6 12) 4 2))
 ;(print (sub-list2 '(1 6 12 9 0 10 11) 4 6))
