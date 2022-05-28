@@ -1,7 +1,7 @@
 (defun inorder(list)
     (cond
         ((null list) '())
-        ((< (list-length list) 2) '(hello))
+        ((< (list-length list) 2) '(NotaBST))
         (t ( append  (inorder (left-subtree list)) (list (car list)) (inorder (right-subtree list)) ) )    
     )
 )
@@ -9,7 +9,7 @@
 (defun preorder(list)
     (cond
         ((null list) '())
-        ((< (list-length list) 2) '(hello))
+        ((< (list-length list) 2) '(preNotaBST))
         ( t (cons (car list) (append (preorder (left-subtree list)) (preorder(right-subtree list))) ) )
     )
 )
