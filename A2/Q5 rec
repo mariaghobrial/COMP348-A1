@@ -1,17 +1,18 @@
-(defun tri(n)
+(defun tribonacci-seq(n)
     (cond
         ((= n 0) '())
         ((= n 1) 0)
         ((= n 2) (print '(0 0)))
         ((= n 3) (print '(0 0 1)))
-        (t(let ((x 0)(y 0)(z 1)(sum n))
+        (t( let ((x 0)(y 0)(z 1)(sum n))
                (loop for n from 4 to n
                      do (setq sum(+ x y z)
                              x y
                              y z
                              z sum))
-              sum)
-        )     
+              sum
+            )
+         )     
      )                           
 )
 
@@ -24,7 +25,7 @@
         ((= n 2)(print '(0 0)))
         ((= n 3)(print '(0 0 1)))
         (t(loop for n from 4 to n
-               do (setf list1 (cons (tri n ) list1))    
+               do (setf list1 (cons (tribonacci-seq n ) list1))    
            )
           (print (reverse list1))
           )  
