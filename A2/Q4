@@ -1,38 +1,22 @@
-; elimDup function removes the duplicate elements from the list
+(defun RemoveDup (list)
+    (cond 
+        ((null list) list)
+        ((member (car list) (cdr list))(RemoveDup (cdr list)))
+        (t (cons (car list) (RemoveDup (cdr list))))
+    )
+)
 
-(defun RemoveDup (L)
+(defun flatten-nums-nodup(list)
+   (cond 
+       ((null list) nil)
+       ((atom (car list))
+           (cond 
+               ((not(numberp (car list)))(RemoveDup (flatten-nums-nodup (cdr list))))
+               (t (RemoveDup (cons (car list) (flatten-nums-nodup (cdr list)))))
+           )
+       )
+       (t (RemoveDup (append (flatten-nums-nodup (car list)) (flatten-nums-nodup(cdr list)))))
+   )
+)
 
-    (cond ((null L) L) ;check whether the list is null or not
-
-        ((member (car L) (cdr L))(RemoveDup (cdr L))) ;Recursive call to the function RemoveDup
-
-        (t (cons (car L) (RemoveDup (cdr L))))))
-
-; get_chars function returns all characters of list
-
-(defun get_chars(L)
-
-   (cond ((null L) nil) ; check whether the list is null or not
-
-       ((atom (car L)) ; ATOM function returns true if the argument is not a cons cell
-
-           ; check whether the atom is number or not
-
-           ; numberp returns true if object is of type number
-
-           (cond ((not(numberp (car L)))(RemoveDup (get_chars (cdr L))))
-               ;((numberp (car L)) (RemoveDup (get_chars (cdr L))))
-
-               ; if not number
-
-               (t (RemoveDup (cons (car L) (get_chars (cdr L)))))))
-
-       ; if car is not an atom
-
-       (t (RemoveDup (append (get_chars (car L)) (get_chars(cdr L)))))))
-
-(write(get_chars '(1 1 a 5 5 3.5)))
-
-(terpri)
-
-;(write(get_chars '((n) 2 (6 h 7.8) (w f) (n) (c) n)))
+(print (flatten-nums-nodup '(1 2 (3 1) (a 2.5) (2 4.5) ((1 2)))))
