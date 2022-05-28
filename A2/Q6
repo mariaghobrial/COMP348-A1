@@ -1,8 +1,8 @@
 (defun depth(elt)
-     (cond 
-         ((atom elt) 0)
-         (t(helper elt))
-      )
+    (cond
+        ((atom elt) 0)
+        (t(helper elt))
+    )
 )
 
 (defun helper(elt)
