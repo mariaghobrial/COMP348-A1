@@ -1,69 +1,34 @@
-; this will traverse the left-subtree of the list
-(defun left-subtree(list)
- (cond 
-     ((null list) nil)
-     (t (car (cdr list)))
- )
-)
-
-; this will traverse the right-subtree of the list
-(defun right-subtree(list)
- (cond 
-     ((null list) nil)
-     (t (car (cdr (cdr list))))
- )
-    
-)
-(defun postorder(list)
- (cond 
-     ((null list) '())
-     ((< (list-length list) 2) '(hello))
-     (t ( append (postorder (left-subtree list)) (postorder (right-subtree list)) (list (car list))) )
-  )
-)
-
 (defun inorder(list)
-    (cond 
-     ((null list) '())
-     ((< (list-length list) 2) '(hello))
-     (t ( append  (inorder (left-subtree list)) (list (car list)) (inorder (right-subtree list)) ) )
-      
-         
-         ; ( t ((lambda (list (car list)) append (postorder (left-subtree list)) (postorder (right-subtree list)))))
-     ;(t (  (list (car list)) (append (postorder (left-subtree list)) (postorder (right-subtree list))) ) )
-  
-    
-    
-)
+    (cond
+        ((null list) '())
+        ((< (list-length list) 2) '(hello))
+        (t ( append  (inorder (left-subtree list)) (list (car list)) (inorder (right-subtree list)) ) )    
     )
-
-
-(defun pre(list)
-    (cond 
-     ((null list) '())
-     ((< (list-length list) 2) '(hello))
-     ( t (cons (car list) (append (pre (left-subtree list)) (pre(right-subtree list))) ) )
-      
-         
-         ; ( t ((lambda (list (car list)) append (postorder (left-subtree list)) (postorder (right-subtree list)))))
-     ;(t (  (list (car list)) (append (postorder (left-subtree list)) (postorder (right-subtree list))) ) )
-  
-    
-    
 )
+
+(defun preorder(list)
+    (cond
+        ((null list) '())
+        ((< (list-length list) 2) '(hello))
+        ( t (cons (car list) (append (preorder (left-subtree list)) (preorder(right-subtree list))) ) )
     )
+)
 
+(defun left-subtree(list)
+    (cond
+        ((null list) nil)
+        (t (car (cdr list)))
+    )
+)
 
+(defun right-subtree(list)
+    (cond
+        ((null list) nil)
+        (t (car (cdr (cdr list))))
+     )
+)
 
 (setq list1 '(8 (3 (1 () ()) (6 (4 () ())(7 () ())))))
-
 (setq list2 '(+ (- (1 () ()) (* (4 () ())(7 () ()))) (/ (7 () ()) (6 () ()))) )
-
-(print (left-subtree (car(cdr list1))))
-(print (right-subtree list1))
-(print (left-subtree list1))
-; (postorder list1)
-(print (pre list1))
-(print (inorder list1))
 (print (inorder list2 ))
-(print (pre list2))
+(print (preorder list2))
