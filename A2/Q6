@@ -1,13 +1,12 @@
-(defun depth (element)
+(defun depth(elt)
      (cond 
-            ( (atom element) 0 )
-             (t(helper element) )
-        )
-    )
+         ((atom elt) 0)
+         (t(helper elt))
+      )
+)
 
-(defun helper(element)
-    ;(print(mapcar (function depth) element))
-    ( 1+ (apply (function max) (mapcar (function depth) element) )   )
+(defun helper(elt)
+    (1+ (apply (function max) (mapcar (function depth) elt)))
 ) 
     
 (print (depth NIL))
