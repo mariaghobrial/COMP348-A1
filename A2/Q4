@@ -1,8 +1,8 @@
-(defun RemoveDup (list)
+(defun removeDupl (list)
     (cond 
         ((null list) list)
-        ((member (car list) (cdr list))(RemoveDup (cdr list)))
-        (t (cons (car list) (RemoveDup (cdr list))))
+        ((member (car list) (cdr list))(removeDupl (cdr list)))
+        (t (cons (car list) (removeDupl (cdr list))))
     )
 )
 
@@ -11,11 +11,11 @@
        ((null list) nil)
        ((atom (car list))
            (cond 
-               ((not(numberp (car list)))(RemoveDup (flatten-nums-nodup (cdr list))))
-               (t (RemoveDup (cons (car list) (flatten-nums-nodup (cdr list)))))
+               ((not(numberp (car list)))(removeDupl (flatten-nums-nodup (cdr list))))
+               (t (removeDupl (cons (car list) (flatten-nums-nodup (cdr list)))))
            )
        )
-       (t (RemoveDup (append (flatten-nums-nodup (car list)) (flatten-nums-nodup(cdr list)))))
+       (t (removeDupl (append (flatten-nums-nodup (car list)) (flatten-nums-nodup(cdr list)))))
    )
 )
 
