@@ -2,7 +2,7 @@
 (setq second 0)
 (setq third 1)
 
-(defun tri(n)
+(defun tribonacci-seq(n)
     (cond
         ((= n 0) (print '()))
         ((= n 1) (print first))
@@ -23,4 +23,4 @@
         )
 )
 
-(tri 7)
+(tribonacci-seq 7)
