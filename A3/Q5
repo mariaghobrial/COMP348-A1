@@ -1,0 +1,91 @@
+import random
+class Shape:
+    #initializing iD to 1 for the 1st obj created
+    ID = 1
+    def __init__(self):
+        self.ID = Shape.ID
+        Shape.ID += 1 #creating ID each time we create an obj
+
+    def perimeter(self):
+        return None
+    def area(self):
+        return None
+
+    def printshape(self, name):
+        return print("The shape is: ", self.__class__.__name__, " \n The ID is: ", self.ID,
+                     "\n The area is: ",self.area(), "\n The parameter is: ", self.perimeter())
+
+
+
+
+
+class Circle(Shape):
+     def __init__(self, radius):
+         super().__init__()
+         self.radius = radius
+
+     def perimeter(self):
+        return round(2 * 3.14 * self.radius, 2)
+
+     def area(self):
+         return round(3.14 * self.radius * self.radius, 2)
+
+
+
+
+class Ellipse(Shape):
+     def __init__(self, a, b):
+        super().__init__()
+        # greater value of a and b is the semi-major axis and lesser value is the semi-minor axis
+        if a > b:
+            self.a = a
+            self.b = b
+        else:
+            self.b = a
+            self.a = b
+
+     def area(self):
+         round(3.14 * self.a * self.b, 2)
+
+     #calculate the linear eccentricity of the ellipse
+     def eccentricity(self):
+        # try to calculate the linear eccentricity,
+        try:
+            return round((self.a**2 - self.b**2)**(1/2), 2)
+        # if the calculation fails, return None
+        except:
+            return None
+
+
+class Rhombus(Shape):
+    def __init__(self, d1, d2):
+        super().__init__()
+        # initializing the two diagonals
+        self.d1 = d1
+        self.d2 = d2
+
+    def perimeter(self):
+        return round(2 * ((self.d1**2 + self.d2**2)**(1/2)), 2)
+
+    def area(self):
+        return round((self.d1 * self.d2) / 2, 2)
+
+    def inradius(self):
+        try:
+            return round((self.d1 * self.d2) / self.perimeter(), 2)
+        # if the calculation fails, return None
+        except:
+            return None
+
+
+
+
+
+
+
+
+
+
+
+
+
