@@ -4,24 +4,28 @@ class Q4:
         self.elts= list(elts)
        # self.items=[]
 
-    # def __repr__(self):
-    #     return " " %self.elts
-    #
-    # def __str__(self):
-    #     return " " %self.elts
-
     def __contains__(self, val):
         # returns True when val is in the multiset, else returns False
         return val in self.elts
 
+    def addelts(self,lst,elt):
+        addedelt = list(lst)
+        addedelt.append(elt)
+        addedelt.sort()
+        # Making the format
+       # result = '{'+str(lst)[1:-1] + '} + '+ str(elt) + ' = {'+ str(addedelt)[1:-1] +'}'
+        return addedelt
 
-    def add1(self, val):
-        # adds one occurrence of val from the multiset, if any
-        self.elts.append(val)
+
+    # def add1(self, val):
+    #     # adds one occurrence of val from the multiset, if any
+    #     self.elts.append(val)
+
     def remove(self, val):
         # removes one occurrence of val from the multiset, if any
         while self.elts.count(val) != 0:
               self.elts.remove(val)
+        return self.elts
 
     def countOcc(self,val):
          if self.elts.count(val) != 0:
@@ -29,24 +33,65 @@ class Q4:
          else:
              print("The value is not in the list")
 
-    def union (self, set1, set2):
+    def union(self, s1, s2):
         newLst=[]
-        lst = list(set(set1).union(set(set2)))
+        lst = list(set(s1).union(set(s2)))
         for i in set(lst):
-            if i in set1 and i in set2:
-                count_set1 = set1.count(i)
-                count_set2 = set2.count(i)
+            if i in s1 and i in s2: #if i is in both lists, then append it based on the max
+                count_set1 = s1.count(i)
+                count_set2 = s2.count(i)
                 for j in range(max([count_set1, count_set2])):
                     newLst.append(i)
-            elif i in set1 and i not in set2:
-                 for j in range(set1.count(i)):
+            elif i in s1 and i not in s2: #if i is in s1 only, then append it to lst
+                 for j in range(s1.count(i)):
                     newLst.append(i)
 
-            elif i not in set1 and i in set2:
-                for j in range(set2.count(i)):
+            elif i not in s1 and i in s2: #if i is in s2 only, then append it to lst
+                for j in range(s2.count(i)):
                   newLst.append(i)
 
-        result = '{' + str(set1)[1:-1] + '} U {' + str(set2)[1:-1] +'} = {' + str(newLst)[1:-1] + '}'
+        return newLst
+
+
+    def intersec (self,s1,s2):
+        newLst = []
+        lst = list(set(s1).intersection(set(s2)))
+        for i in set(lst):
+            if i in s1 and i in s2: #if i is in both lists, then append it based on the max
+                count_set1 = s1.count(i)
+                count_set2 = s2.count(i)
+                for j in range(min([count_set1, count_set2])):
+                    newLst.append(i)
+            elif i not in s1 and i not in s2:
+                print("No common intersection")
+
+        return newLst
+
+    def Difference_Update(self , Set_A , Set_B):
+        new_list = []
+        for ele in set(Set_A):
+            if ele not in Set_B:
+                for j in range(Set_A.count(ele)):
+                  new_list.append(ele)
+            else:
+               a_b = Set_A.count(ele) - Set_B.count(ele)
+               for i in range(a_b):
+                  new_list.append(ele)
+        # Making the format
+       # result = '{' + str(Set_A)[1:-1] + '} - {' + str(Set_B)[1:-1] +'} = {' + str(new_list)[1:-1] + '}'
+        return new_list
+
+    def diff(self,s1,s2):
+        newLst = []
+        for i in set(s1):
+            if i not in s2:
+                for j in range(s1.count(i)):
+                    newLst.append(i)
+            else:
+               diffr = s1.count(i) - s2.count(i)
+               for k in range(diffr):
+                  newLst.append(i)
+        return newLst
 
 
 
@@ -58,63 +103,40 @@ class Q4:
 
 
 
-        # def Union_with_another_set(self , Set_a , Set_b):
-        #     new_list = []
-        #     large_lst =list(set(Set_a).union(set(Set_b)))
-        #     for i in set(large_lst):
-        #     if i in Set_a and i in Set_b:
-        #     count_a = Set_a.count(i)
-        #     count_b = Set_b.count(i)
-        #     for j in range(max([count_a , count_b])):
-        #     new_list.append(i)
-        #         elif i in Set_a and i not in Set_b:
-                    # for j in range(Set_a.count(i)):
-                    # new_list.append(i)
-        #
-        # elif i not in Set_a and i in Set_b:
-        # for j in range(Set_b.count(i)):
-        # new_list.append(i)
-        # # Making the format
-        # result = '{' + str(Set_a)[1:-1] + '} U {' + str(Set_b)[1:-1] +'} = {' + str(new_list)[1:-1] + '}'
-        # return result
-
-
-
-
-
-
-
-
-
-
-        # for val in set:
-        #     if val in set:
-        #         count +=1
-        #     else:
-        #         pass
-
-
-         # while self.elts.count(val) != 0:
-         #      self.elts.remove(val)
 
 
 if __name__ == '__main__':
-    set=Q4(1,3,4,9,9,9)
-    set2= Q4()
-    set2.add1(3)
-    print(set)
-   # set.add1(8)
-    print(set)
-   # set.remove(9)
-    #print (set)
-    set.countOcc(9)
-    set.union(set,set2)
 
-    print(set)
+     test=Q4()
+     print ("test add method ",test.addelts([1,3,4,9,9,9],9))
+     print ("test remove method ",test.remove(9))
 
+     print("test union method ",test.union([1,2], [2,2,3]))
+     print ("test intersection ", test.intersec([1,2,3,4], [5,6,7]))
 
+     print ("test difference_up ", test.Difference_Update([1,1,1,2,2,3],[1,2,2,2]))
+   #  print ("test difference_up ", test.Difference_Update([10,20,30,40,80],[100,30,80,40,60]))
 
+     print ("test diff ", test.diff([1,1,1,2,2,3],[1,2,2,2]))
+   #  print ("test diff ", test.diff([10,20,30,40,80],[100,30,80,40,60]))
 
+     #set=Q4(1,3,4,9,9,9) #union breaks cuz Q4 is initialized
+    # set=Q4()
+    # print("set remove method ",set.remove(9))
+    # print("set union method ",set.union([1,2], [2,2,3]))
+     #print("set add method",set.addelts([1,3,4,9,9,9],5))
+
+   #  set2= Q4()
+   #  set2.add1(3)
+   #  print(set)
+   # # set.add1(8)
+   #  print(set)
+
+   #  #print (set)
+   #  set.countOcc(9)
+   #  set.union(set,set2)
+   #
+   #  print(set)
 
     # set1={1, 2, 3}
     # sample_list = [87, 52, 44, 53, 54, 87, 52, 53]
