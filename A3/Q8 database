@@ -1,0 +1,21 @@
+student(maria, 40190053).
+student(karin, 40189273).
+student(jackie, 4001901).
+student(melanie, 4013678).
+
+course(webprogramming, soen287).
+course(principlesofprogramminglanguages, comp348).
+course(datastructureandalgorithm, comp352).
+course(systemhardware, soen228).
+course(sustainabledeveloppementandenvironmentalstewardship, engr202).
+
+istaking(maria, comp348).
+istaking(karin, comp348).
+istaking(jackie, comp352).
+istaking(jackie, engr202).
+istaking(melanie, engr202).
+istaking(melanie, soen228).
+
+
+
+
