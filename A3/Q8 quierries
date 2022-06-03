@@ -1,2 +1,3 @@
 findall(Y, istaking(melanie,Y),Lst).
 teamcount(X).
+findall(Y, course(_,Y),Lst).
