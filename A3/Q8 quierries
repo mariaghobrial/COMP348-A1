@@ -1,3 +1,4 @@
 findall(Y, istaking(melanie,Y),Lst).
 teamcount(X).
 findall(Y, course(_,Y),Lst).
+sort([comp348,comp352,soen228, engr202], Lst).
