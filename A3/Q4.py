@@ -1,5 +1,5 @@
 class Q4:
-
+    #default constructor
     def __init__(self, *elts):
         self.elts= list(elts)
        # self.items=[]
@@ -8,30 +8,31 @@ class Q4:
         # returns True when val is in the multiset, else returns False
         return val in self.elts
 
-    def addelts(self,lst,elt):
-        addedelt = list(lst)
-        addedelt.append(elt)
-        addedelt.sort()
+    #method to add elts to the set
+    def addelts(self, lst, elt):
+        addedelt = list(lst) #make the added elt as a lst
+        addedelt.append(elt) #append the added elt to the lst
+        addedelt.sort() #sorts the final lst
         # Making the format
        # result = '{'+str(lst)[1:-1] + '} + '+ str(elt) + ' = {'+ str(addedelt)[1:-1] +'}'
         return addedelt
 
+    def removeAll(self, lst, val):
+        if lst.count(val) == 0:
+            print("elt not found")
 
-    # def add1(self, val):
-    #     # adds one occurrence of val from the multiset, if any
-    #     self.elts.append(val)
+        for i in lst:
+            if lst.count(val) != 0:
+                lst.remove(val)
 
-    def remove(self, val):
-        # removes one occurrence of val from the multiset, if any
-        while self.elts.count(val) != 0:
-              self.elts.remove(val)
-        return self.elts
+        return lst
 
-    def countOcc(self,val):
-         if self.elts.count(val) != 0:
-             print("the number of occurences of",val,"is ", self.elts.count(val))
-         else:
-             print("The value is not in the list")
+    def countOcc(self, lst, val):
+         if lst.count(val) == 0:
+            print("The value is not in the list")
+
+         if lst.count(val) != 0:
+             return print("the number of occurences of",val,"is ", lst.count(val))
 
     def union(self, s1, s2):
         newLst=[]
@@ -52,8 +53,7 @@ class Q4:
 
         return newLst
 
-
-    def intersec (self,s1,s2):
+    def intersec (self, s1, s2):
         newLst = []
         lst = list(set(s1).intersection(set(s2)))
         for i in set(lst):
@@ -66,20 +66,6 @@ class Q4:
                 print("No common intersection")
 
         return newLst
-
-    def Difference_Update(self , Set_A , Set_B):
-        new_list = []
-        for ele in set(Set_A):
-            if ele not in Set_B:
-                for j in range(Set_A.count(ele)):
-                  new_list.append(ele)
-            else:
-               a_b = Set_A.count(ele) - Set_B.count(ele)
-               for i in range(a_b):
-                  new_list.append(ele)
-        # Making the format
-       # result = '{' + str(Set_A)[1:-1] + '} - {' + str(Set_B)[1:-1] +'} = {' + str(new_list)[1:-1] + '}'
-        return new_list
 
     def diff(self,s1,s2):
         newLst = []
@@ -94,56 +80,29 @@ class Q4:
         return newLst
 
 
-
-
-
-
-
-
-
-
-
-
-
 if __name__ == '__main__':
 
      test=Q4()
-     print ("test add method ",test.addelts([1,3,4,9,9,9],9))
-     print ("test remove method ",test.remove(9))
+     #-------------TESTING ADD ELTS METHOD-------------------#
+     print("test add method ", test.addelts([1, 3, 4, 9, 9, 9], 9))
 
-     print("test union method ",test.union([1,2], [2,2,3]))
-     print ("test intersection ", test.intersec([1,2,3,4], [5,6,7]))
+    #-------------TESTING REMOVE METHOD-------------------#
+     print("test remove method ", test.removeAll([1, 3, 4, 9, 9, 9], 9))
 
-     print ("test difference_up ", test.Difference_Update([1,1,1,2,2,3],[1,2,2,2]))
-   #  print ("test difference_up ", test.Difference_Update([10,20,30,40,80],[100,30,80,40,60]))
+    #-------------TESTING COUNT OCCURENCES METHOD-------------------#
+     test.countOcc([1, 3, 4, 9, 9, 9], 9)
 
-     print ("test diff ", test.diff([1,1,1,2,2,3],[1,2,2,2]))
-   #  print ("test diff ", test.diff([10,20,30,40,80],[100,30,80,40,60]))
+     #-------------TESTING UNION  METHOD-------------------#
+     print("test union method ", test.union([1, 2], [2, 2, 3]))
 
-     #set=Q4(1,3,4,9,9,9) #union breaks cuz Q4 is initialized
-    # set=Q4()
-    # print("set remove method ",set.remove(9))
-    # print("set union method ",set.union([1,2], [2,2,3]))
-     #print("set add method",set.addelts([1,3,4,9,9,9],5))
+    #-------------TESTING INTERSECTION METHOD-------------------#
+     print ("test intersection ", test.intersec([1, 1, 2, 2, 3], [2, 2, 2, 3, 4]))
 
-   #  set2= Q4()
-   #  set2.add1(3)
-   #  print(set)
-   # # set.add1(8)
-   #  print(set)
+      #-------------TESTING DIFFERENCE METHOD-------------------#
 
-   #  #print (set)
-   #  set.countOcc(9)
-   #  set.union(set,set2)
-   #
-   #  print(set)
+     print("test diff ", test.diff([1, 1, 1, 2, 2, 3], [1, 2, 2, 2]))
+     print("test diff ", test.diff([10, 20, 30, 40, 80], [100, 30, 80, 40, 60]))
 
-    # set1={1, 2, 3}
-    # sample_list = [87, 52, 44, 53, 54, 87, 52, 53]
-    # print(set1)
-    # set1.add1(set1, 5)
-    #  set1.add(5)
-    # set1.__add__(5)
-    # print(set1)
+
 
 
