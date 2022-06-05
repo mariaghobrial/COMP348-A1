@@ -21,9 +21,10 @@ allcourses(X,Return):- findall(C, course(_,C),Return).
 
 teamcount(X) :-findall(S, student(S,_), Ns),length(Ns, X).
 
+%rmeoving duplicates
 rdup([], []).
-rdup([First | Rest], NewRest) :- member(First, Rest), rdup(Rest, NewRest).
-rdup([First | Rest], [First | NewRest]) :- not(member(First, Rest)), rdup(Rest, NewRest).
+rdup([H | T], T2) :- member(H, T), rdup(T, T2).
+rdup([H | T], [H | T2]) :- not(member(H, T)), rdup(T, T2).
 unique(Y, NS):- findall(C,course(_,C), Return), rdup(Return, NS).
 
 sort2(X,Y):- unique(X,NS), sort(NS,Y).
