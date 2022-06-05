@@ -1,44 +1,30 @@
 class Q3:
-    def customSet(self, seq):
-
+    def custom_set(self, seq):
         lengthSeq = len(seq)
         if lengthSeq == 0:
             return []
-        # u = {} #initialize empty dict
-        # try:
-        #     for x in seq:
-        #         u[x] = 1
-        # except TypeError:
-        #     del u  # Move on to the next method
-        # else:
-        #     return u.keys()
-        try:
-            t = list(seq)
-            t.sort()
-        except TypeError:
-            del t
         else:
-            assert lengthSeq > 0
-            last = t[0]
-            lasti = i = 1
+            lst = list(seq)
+            lst.sort()
+           # assert lengthSeq > 0
+            current = lst[0]
+            new = i = 1
+            #removing duplicates
             while i < lengthSeq:
-                if t[i] != last:
-                    t[lasti] = last = t[i]
-                    lasti += 1
+                if lst[i] != current:
+                    lst[new] = current = lst[i]
+                    new += 1
                 i += 1
-            return t[:lasti]
+            return lst[:new]
+      
 
-        u = []
-        for x in seq:
-            if x not in u:
-                u.append(x)
-        return u
 
 if __name__ == '__main__':
 
     test=Q3()
-    print(test.customSet([1, 2, 3, 1, 2, 3]))
-    print(test.customSet("abcabc"))
-    print(test.customSet(([1, 2], [2, 3], [1, 2])))
+    print(test.custom_set([1, 2, 3, 1, 2, 3]))
+    print(test.custom_set([ 3, 1, 2]))
+    #print(test.custom_set("abcabc"))
+    #print(test.custom_set(([1, 2], [2, 3], [1, 2])))
 
 
