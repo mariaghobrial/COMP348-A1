@@ -1,3 +1,4 @@
+shapes={"Circle":0, "Ellipse":0, "Rhombus":0, "Shape":0}
 class Shape:
     # initializing iD to 1 for the 1st obj created
     ID = 1
@@ -7,15 +8,14 @@ class Shape:
         Shape.ID += 1  # creating ID each time we create an obj
 
     def perimeter(self):
-        return None
+        return 'Undefined'
 
     def area(self):
-        return None
+        return 'Undefined'
 
     def printshape(self, name):
         return print("The shape is: ", self.__class__.__name__, " \n The ID is: ", self.ID,
                      "\n The area is: ", self.area(), "\n The parameter is: ", self.perimeter())
-
 
 class Circle(Shape):
     radius = 0.0
@@ -83,9 +83,9 @@ class Rhombus(Shape):
 
 
 class main:
-    crcounter=0
-    elcounter=0
-    rhcounter=0
+    crcounter = 0
+    elcounter = 0
+    rhcounter = 0
     count = 0
     f = open("input", "r")
     inputArr = f.readlines()
@@ -95,32 +95,32 @@ class main:
         if (strArr[0].lower() == 'shape'):
             if (len(strArr) > 1):
                 print('Error: invalid Shape')
-                sh=Shape()
+                sh = Shape()
                 pass
             else:
                 sh = Shape()
-            print(sh.ID,'. Shape, perimeter:', sh.perimeter(), ', area:', sh.area())
+            print(sh.ID, '. Shape, perimeter:', sh.perimeter(), ', area:', sh.area())
 
         elif (strArr[0].lower() == 'circle'):
-            if (len(strArr) > 2 or len(strArr) < 2 or int(strArr[1]) < 0 ):
+            if (len(strArr) > 2 or len(strArr) < 2 or int(strArr[1]) < 0):
                 print('Error: invalid Circle')
-                cr=Circle(0)
+                cr = Circle(0)
                 pass
             else:
                 cr = Circle(strArr[1])
-            crcounter+= 1
+            shapes["Circle"]=shapes["Circle"]+1
             print(cr.ID, '. Circle, perimeter:', cr.perimeter(), ', area: ', cr.area())
 
         elif (strArr[0].lower() == 'ellipse'):
-            if (len(strArr) > 3 or len(strArr) < 3 or int(strArr[1]) < 0 or int(strArr[2]) <0 ):
+            if (len(strArr) > 3 or len(strArr) < 3 or int(strArr[1]) < 0 or int(strArr[2]) < 0):
                 print('Error: invalid Ellipse')
-                el=Ellipse(0,0)
+                el = Ellipse(0, 0)
                 pass
             else:
                 el = Ellipse(strArr[1], strArr[2])
-            elcounter+=1
+            shapes["Ellipse"]=shapes["Ellipse"]+1
             print(el.ID, '. Ellipse, perimeter:', el.perimeter(), ', area: ', el.area(), ', linear eccentricity: ',
-                      el.eccentricity())
+                  el.eccentricity())
 
         elif (strArr[0].lower() == 'rhombus'):
             if (len(strArr) > 3 or len(strArr) < 3 or int(strArr[1]) < 0 or int(strArr[2]) < 0):
@@ -129,10 +129,9 @@ class main:
                 pass
             else:
                 rh = Rhombus(strArr[1], strArr[2])
-            rhcounter+=1
-            print(rh.ID,'. Rhombus, perimeter:', rh.perimeter(), ', area: ', rh.area(), ', in-radius: ', rh.inradius())
-        count+=1
+            shapes["Rhombus"]=shapes["Rhombus"]+1
+            print(rh.ID, '. Rhombus, perimeter:', rh.perimeter(), ', area: ', rh.area(), ', in-radius: ', rh.inradius())
+        shapes["Shape"]=shapes["Shape"]+1
 
-
-    print('Statistics: \n   Circle(s): ', crcounter, '\n   Ellipse(s): ',elcounter, '\n   Rhombus(es): ', rhcounter, '\n      -- \n    Shape(s): ', count)
-
+    print('Statistics: \n   Circle(s): ', shapes["Circle"], '\n   Ellipse(s): ', shapes["Ellipse"], '\n   Rhombus(es): ', shapes["Rhombus"],
+          '\n      -- \n    Shape(s): ', shapes["Shape"])
