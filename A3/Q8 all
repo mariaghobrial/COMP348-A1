@@ -8,6 +8,7 @@ course(principlesofprogramminglanguages, comp348).
 course(datastructureandalgorithm, comp352).
 course(systemhardware, soen228).
 course(sustainabledeveloppementandenvironmentalstewardship, engr202).
+course(sustainabledeveloppementandenvironmentalstewardship, engr202).
 
 istaking(maria, comp348).
 istaking(karin, comp348).
@@ -16,9 +17,18 @@ istaking(jackie, engr202).
 istaking(melanie, engr202).
 istaking(melanie, soen228).
 
-
+allcourses(X,Return):- findall(C, course(_,C),Return).
 
 teamcount(X) :-findall(S, student(S,_), Ns),length(Ns, X).
 
+rdup([], []).
+rdup([First | Rest], NewRest) :- member(First, Rest), rdup(Rest, NewRest).
+rdup([First | Rest], [First | NewRest]) :- not(member(First, Rest)), rdup(Rest, NewRest).
+unique(Y, NS):- findall(C,course(_,C), Return), rdup(Return, NS).
 
+sort2(X,Y):- unique(X,NS), sort(NS,Y).
 
+%2: allcourses(X,ALL).
+%3: teamcount(X).
+%4: unique(Y,UNIQUE).
+%5: sort2(Y, SORTED).
