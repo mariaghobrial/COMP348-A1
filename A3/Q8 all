@@ -3,7 +3,6 @@ student(karin, 40189273).
 student(jackie, 4001901).
 student(melanie, 4013678).
 
-course(webprogramming, soen287).
 course(principlesofprogramminglanguages, comp348).
 course(datastructureandalgorithm, comp352).
 course(systemhardware, soen228).
@@ -17,7 +16,7 @@ istaking(jackie, engr202).
 istaking(melanie, engr202).
 istaking(melanie, soen228).
 
-allcourses(X,Return):- findall(C, course(_,C),Return).
+findCourses(X):-findall(Y,course(_,Y),X).
 
 teamcount(X) :-findall(S, student(S,_), Ns),length(Ns, X).
 
@@ -29,7 +28,10 @@ unique(Y, NS):- findall(C,course(_,C), Return), rdup(Return, NS).
 
 sort2(X,Y):- unique(X,NS), sort(NS,Y).
 
-%2: allcourses(X,ALL).
+unify(X):- findCourses(A), sort2(A,X).
+
+%2: findall(Y, istaking(maria,Y),Lst).
 %3: teamcount(X).
 %4: unique(Y,UNIQUE).
 %5: sort2(Y, SORTED).
+%6: unify([A,B|C]).
