@@ -14,8 +14,8 @@ class Q4:
         addedelt.append(elt) #append the added elt to the lst
         addedelt.sort() #sorts the final lst
         # Making the format
-       # result = '{'+str(lst)[1:-1] + '} + '+ str(elt) + ' = {'+ str(addedelt)[1:-1] +'}'
-        return addedelt
+        result = '{'+ str(addedelt)[1:-1] +'}'
+        return result
 
     def removeAll(self, lst, val):
         if lst.count(val) == 0:
@@ -25,14 +25,15 @@ class Q4:
             if lst.count(val) != 0:
                 lst.remove(val)
 
-        return lst
+        result = '{'+ str(lst)[1:-1] +'}'
+        return result
 
     def countOcc(self, lst, val):
          if lst.count(val) == 0:
             print("The value is not in the list")
 
          if lst.count(val) != 0:
-             return print("the number of occurences of",val,"is ", lst.count(val))
+             return print("The number of occurences of", val, "is ", lst.count(val))
 
     def union(self, s1, s2):
         newLst=[]
@@ -51,7 +52,8 @@ class Q4:
                 for j in range(s2.count(i)):
                   newLst.append(i)
 
-        return newLst
+        result = '{'+ str(newLst)[1:-1] +'}'
+        return result
 
     def intersec (self, s1, s2):
         newLst = []
@@ -65,7 +67,8 @@ class Q4:
             elif i not in s1 and i not in s2:
                 print("No common intersection")
 
-        return newLst
+        result = '{'+ str(newLst)[1:-1] +'}'
+        return result
 
     def diff(self,s1,s2):
         newLst = []
@@ -77,7 +80,9 @@ class Q4:
                diffr = s1.count(i) - s2.count(i)
                for k in range(diffr):
                   newLst.append(i)
-        return newLst
+
+        result = '{'+ str(newLst)[1:-1] +'}'
+        return result
 
 
 if __name__ == '__main__':
