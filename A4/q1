@@ -1,0 +1,107 @@
+using System;
+
+namespace a4_comp348
+{
+    interface Shape
+    {
+        public string name()
+        {
+
+            return this.GetType().Name;
+            // Console.WriteLine(this.GetType().Name);
+
+        }
+        void getPerimeter();
+        void getArea();
+
+    } //end interface
+
+    public class Rectangle : Shape
+    {
+
+        double s1;
+        double s2;
+        //Default constructor
+        Rectangle()
+        {
+            this.s1 = 0.0;
+            this.s2 = 0.0;
+
+        }
+
+        //param constructor
+        Rectangle(double side1, double side2)
+        {
+            this.s1 = side1;
+            this.s2 = side2;
+        }
+
+        public void getPerimeter()
+        {
+            Console.WriteLine("Rectangle Perimiter is: ", (s1 + s2));
+
+        }
+        public void getArea()
+        {
+            Console.WriteLine("Rectangle Area is: ", (s1 * s2));
+        }
+
+        public override string ToString()
+        {
+            Shape r = new Rectangle();
+            // string n = r.name();
+
+            return "Shape is,  " + r.name() + ", " + s1 + ", " + s2;
+
+        }
+
+
+
+    }//end of Rectangle
+
+    public class Circle : Shape
+    {
+
+        double r;
+
+        //default constructor
+
+        Circle()
+        {
+            this.r = 0.0;
+
+
+        }
+
+        //param constructor
+        Circle(double rad)
+        {
+            this.r = rad;
+
+        }
+
+
+        public void getPerimeter()
+        {
+            Console.WriteLine("Circle Perimiter is: ", (2 * 3.14 * r));
+
+        }
+        public void getArea()
+        {
+            Console.WriteLine("Circle Area is: ", (3.14 * r * r));
+        }
+
+
+        public override string ToString()
+        {
+            Shape r = new Circle();
+            // string n = r.name();
+
+            return "Shape is : " + r.name() + ", " + r;
+
+        }
+
+
+    }
+
+}
