@@ -1,0 +1,34 @@
+using System;
+
+namespace a4_comp348
+{
+    public static class ExtC
+    {
+
+        public static void Print(this Shape s) {
+
+            Console.WriteLine(s.ToString());
+
+        }
+
+        public static Rectangle Parse( string s) {
+
+            string [] val = s.Split(",");
+            Rectangle r = new Rectangle(val[1], val[2]);
+            return r;
+
+        }
+
+        public static Circle parse(string s)
+        {
+
+            string[] val = s.Split(",");
+            Circle c = new Circle(val[1]);
+            return c;
+
+        }
+
+
+
+    }
+}
