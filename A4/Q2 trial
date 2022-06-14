@@ -33,8 +33,6 @@ namespace a4_classes {
 
         double s1;
         double s2;
-        private string v1;
-        private string v2;
 
         //Default constructor
         public Rectangle()
@@ -51,11 +49,6 @@ namespace a4_classes {
             this.s2 = side2;
         }
 
-        public Rectangle(string v1, string v2)
-        {
-            this.v1 = v1;
-            this.v2 = v2;
-        }
 
         public void getPerimeter()
         {
@@ -84,39 +77,29 @@ namespace a4_classes {
         {
 
             string[] val = s.Split(",");
-            Rectangle r = new Rectangle(val[1], val[2]);
+            Rectangle r = new Rectangle(Convert.ToDouble(val[1]), Convert.ToDouble(val[2]));
             return r;
 
         }
     }//end of Rectangle
 
-    class Circle : Shape
+    public partial class Circle : Shape
     {
 
         double r;
-        private string v;
 
         //default constructor
 
         public Circle()
         {
             this.r = 0.0;
-
-
         }
 
         //param constructor
         public Circle(double rad)
         {
             this.r = rad;
-
         }
-
-        public Circle(string v)
-        {
-            this.v = v;
-        }
-
 
         public void getPerimeter()
         {
@@ -132,7 +115,6 @@ namespace a4_classes {
         public override string ToString()
         {
             Shape r = new Circle();
-
             return r.name() + ", " + r;
 
         }
@@ -154,6 +136,12 @@ namespace a4_classes {
 
             Console.WriteLine(r);
 
+            Circle c = new Circle();
+            c=c.Parse("Circle, 2");
+            Console.WriteLine(c);
+
+          
+
 
 
 
@@ -167,4 +155,3 @@ namespace a4_classes {
 
 
 }
-
