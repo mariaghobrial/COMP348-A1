@@ -22,50 +22,10 @@ namespace a4_interface
   
 }
 
-namespace a4 {
-    using a4_interface;
-    using a4_classes;
-    using System;
 
-    public static class ExtC
-    {
-
-        public static void Print(this Shape s)
-        {
-
-            Console.WriteLine(s.ToString());
-
-        }
-
-        public static Rectangle Parse(string s)
-        {
-
-            string[] val = s.Split(",");
-            Rectangle r = new Rectangle(val[1], val[2]);
-            return r;
-
-        }
-
-        public static Circle parse(string s)
-        {
-
-            string[] val = s.Split(",");
-            Circle c = new Circle(val[1]);
-            return c;
-
-        }
-
-
-
-    }
-
-
-
-}
 
 namespace a4_classes {
-    using a4_comp348;
-    using a4;
+    using a4_interface;
     using System;
 
     public class Rectangle : Shape
@@ -77,7 +37,7 @@ namespace a4_classes {
         private string v2;
 
         //Default constructor
-        Rectangle()
+        public Rectangle()
         {
             this.s1 = 0.0;
             this.s2 = 0.0;
@@ -85,7 +45,7 @@ namespace a4_classes {
         }
 
         //param constructor
-        Rectangle(double side1, double side2)
+        public Rectangle(double side1, double side2)
         {
             this.s1 = side1;
             this.s2 = side2;
@@ -115,19 +75,22 @@ namespace a4_classes {
             return r.name() + ", " + s1 + ", " + s2;
 
         }
-
-        void Print(this Shape s)
-        {
-            Console.WriteLine(s.ToString());
-        }
-
         public void Print()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Rectangle Print method");
+        }
+
+        public static Rectangle Parse(string s)
+        {
+
+            string[] val = s.Split(",");
+            Rectangle r = new Rectangle(val[1], val[2]);
+            return r;
+
         }
     }//end of Rectangle
 
-    public class Circle : Shape
+    class Circle : Shape
     {
 
         double r;
@@ -135,7 +98,7 @@ namespace a4_classes {
 
         //default constructor
 
-        Circle()
+        public Circle()
         {
             this.r = 0.0;
 
@@ -143,7 +106,7 @@ namespace a4_classes {
         }
 
         //param constructor
-        Circle(double rad)
+        public Circle(double rad)
         {
             this.r = rad;
 
@@ -174,13 +137,32 @@ namespace a4_classes {
 
         }
 
-        void Shape.Print(this Shape s)
+        public void Print()
         {
-            Console.WriteLine(s.ToString());
+            Console.WriteLine("Circle Print method");
         }
     
 
     } //end of Circle
+
+    public class TestingMain {
+        static void Main(string[] args) {
+
+            Rectangle r = new Rectangle();
+
+            r = Rectangle.Parse("Rectangle,3.1,2.1");
+
+            Console.WriteLine(r);
+
+
+
+
+        }
+
+
+
+    }
+
 
 
 
