@@ -1,0 +1,188 @@
+
+namespace a4_interface
+{
+    using System;
+    public interface Shape
+    {
+        
+        public string name()
+        {
+            return this.GetType().Name;
+            // Console.WriteLine(this.GetType().Name);
+
+        }
+        void getPerimeter();
+        void getArea();
+        void Print();
+
+
+
+    } //end interface
+
+  
+}
+
+namespace a4 {
+    using a4_interface;
+    using a4_classes;
+    using System;
+
+    public static class ExtC
+    {
+
+        public static void Print(this Shape s)
+        {
+
+            Console.WriteLine(s.ToString());
+
+        }
+
+        public static Rectangle Parse(string s)
+        {
+
+            string[] val = s.Split(",");
+            Rectangle r = new Rectangle(val[1], val[2]);
+            return r;
+
+        }
+
+        public static Circle parse(string s)
+        {
+
+            string[] val = s.Split(",");
+            Circle c = new Circle(val[1]);
+            return c;
+
+        }
+
+
+
+    }
+
+
+
+}
+
+namespace a4_classes {
+    using a4_comp348;
+    using a4;
+    using System;
+
+    public class Rectangle : Shape
+    {
+
+        double s1;
+        double s2;
+        private string v1;
+        private string v2;
+
+        //Default constructor
+        Rectangle()
+        {
+            this.s1 = 0.0;
+            this.s2 = 0.0;
+
+        }
+
+        //param constructor
+        Rectangle(double side1, double side2)
+        {
+            this.s1 = side1;
+            this.s2 = side2;
+        }
+
+        public Rectangle(string v1, string v2)
+        {
+            this.v1 = v1;
+            this.v2 = v2;
+        }
+
+        public void getPerimeter()
+        {
+            Console.WriteLine("Rectangle Perimiter is: ", (s1 + s2));
+
+        }
+        public void getArea()
+        {
+            Console.WriteLine("Rectangle Area is: ", (s1 * s2));
+        }
+
+        public override string ToString()
+        {
+            Shape r = new Rectangle();
+            // string n = r.name();
+
+            return r.name() + ", " + s1 + ", " + s2;
+
+        }
+
+        void Print(this Shape s)
+        {
+            Console.WriteLine(s.ToString());
+        }
+
+        public void Print()
+        {
+            throw new NotImplementedException();
+        }
+    }//end of Rectangle
+
+    public class Circle : Shape
+    {
+
+        double r;
+        private string v;
+
+        //default constructor
+
+        Circle()
+        {
+            this.r = 0.0;
+
+
+        }
+
+        //param constructor
+        Circle(double rad)
+        {
+            this.r = rad;
+
+        }
+
+        public Circle(string v)
+        {
+            this.v = v;
+        }
+
+
+        public void getPerimeter()
+        {
+            Console.WriteLine("Circle Perimiter is: ", (2 * Math.PI * r));
+
+        }
+        public void getArea()
+        {
+            Console.WriteLine("Circle Area is: ", (Math.PI * r * r));
+        }
+
+
+        public override string ToString()
+        {
+            Shape r = new Circle();
+
+            return r.name() + ", " + r;
+
+        }
+
+        void Shape.Print(this Shape s)
+        {
+            Console.WriteLine(s.ToString());
+        }
+    
+
+    } //end of Circle
+
+
+
+}
+
