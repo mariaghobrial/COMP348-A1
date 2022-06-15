@@ -26,10 +26,8 @@ namespace A4Q3
             if (LineRead != null) LineRead(message);
         }
 
-        public static List<double> Read(string path)
+        public static String[] Read(string path)
         {
-            List<double> doublearr = new List<double>();
-            List<double> doublepar = new List<double>();
             string readText = File.ReadAllText(path);
             string[] lines = readText.Split('\n');
             Console.WriteLine("Nr. Of lines in file: " + lines.Length);
@@ -39,21 +37,7 @@ namespace A4Q3
                 RaiseEvent(s);
 
             }
-            foreach (string line in lines)
-            {
-                string[] words = line.Split(',');
-                if (words[0].Equals("Rectangle"))
-                {
-                    double area = Convert.ToDouble(words[1]) * Convert.ToDouble(words[2]);
-                    doublearr.Add(area);
-                }
-                if (words[0].Equals("Circle"))
-                {
-                    double area = Math.PI * Convert.ToDouble(words[1]);
-                    doublearr.Add(area);
-                }
-            }
-            return doublearr;
+            return lines;
         }
     }
     class main
@@ -64,24 +48,100 @@ namespace A4Q3
         }
         static void Main()
         {
+            List<double> doublearr = new List<double>();
+            List<double> doubleper = new List<double>();
             TextFileProcessor.LineRead += new TextFileProcessor.CustomeDelegate(currentMessageFromFile);
-            List<double> doublearr = TextFileProcessor.Read("abc.txt");
+            string[] lines = TextFileProcessor.Read("abc.txt");
+            foreach (string line in lines)
+            {
+                string[] words = line.Split(',');
+                if (words[0].Equals("Rectangle"))
+                {
+                    double area = Convert.ToDouble(words[1]) * Convert.ToDouble(words[2]);
+                    double per = Convert.ToDouble(words[1]) + Convert.ToDouble(words[2]);
+                    doublearr.Add(area);
+                    doubleper.Add(per);
+                }
+                if (words[0].Equals("Circle"))
+                {
+                    double area = Math.PI * Convert.ToDouble(words[1])*Convert.ToDouble(words[1]);
+                    double per = 2 * Math.PI * Convert.ToDouble(words[1]);
+                    doublearr.Add(area);
+                    doubleper.Add(per);
+                }
+            }
 
             var output =
-                from rad in doublearr
-                orderby rad
-                select rad;
+                from area in doublearr
+                orderby area
+                select area;
 
-            Console.WriteLine("sorting by area:");
+            Console.WriteLine("\nsorting by area:");
             foreach (var s in output)
             {
                 Console.Write(s + ", ");
             }
 
             var output2 =
-                from rad in doublearr
-                orderby rad
-                select rad;
+                from per in doubleper
+                orderby per
+                select per;
+
+            Console.WriteLine("\n\nsorting by perimeter:");
+            foreach (var s in output2)
+            {
+                Console.Write(s + ", ");
+            }
+            //int i = 0;
+
+            var group = from line in lines
+                        from word in line.Split(',')
+                        group line by line[0] into newGroup
+                        select newGroup;
+
+            double careaavg = 0;
+            double cperavg = 0;
+            int ccount = 0;
+            double rareaavg = 0;
+            double rperavg = 0;
+            int rcount = 0;
+            int shapecount = lines.Length;
+            
+
+            foreach (var g in group)
+            {
+                foreach (var x in g)
+                {
+                    
+                    if (x.Contains("Circle"))
+                    {
+                        string[] arr=x.Split(',');
+                        careaavg += Math.PI * Convert.ToDouble(arr[1])* Convert.ToDouble(arr[1]);
+                        cperavg += 2 * Math.PI * Convert.ToDouble(arr[1]);
+                        ccount++;
+                    }
+                    else if (x.Contains("Rectangle"))
+                    {
+                        string[] arr2= x.Split(',');
+                        rareaavg += Convert.ToDouble(arr2[1]) * Convert.ToDouble(arr2[2]);
+                        rperavg += Convert.ToDouble(arr2[1]) + Convert.ToDouble(arr2[2]);
+                        rcount++;
+                    }
+                }
+            }
+            
+
+            careaavg = careaavg / ccount;
+            cperavg= cperavg / ccount;
+            rareaavg = rareaavg / rcount;
+            rperavg = rperavg / rcount;
+
+            Console.WriteLine($"\n\nCircle Area Average: {careaavg}");
+            Console.WriteLine($"Circle Perimeter Average: {cperavg}");
+            Console.WriteLine($"Rectangle Area Average: {rareaavg}");
+            Console.WriteLine($"Rectangle Perimeter Average:  {rperavg}");
+            Console.WriteLine($"Total number of shapes in the file: {shapecount}");
+
         }
     }
 
