@@ -1,0 +1,88 @@
+using System;
+using System.IO;
+using System.Collections.Generic;
+using System.Linq;
+
+
+namespace A4Q3
+{
+    // Creating a custome event , to set the current line read from file to LineRead .
+    public class MyEventArgs : EventArgs
+    {
+        public string LineRead { get; set; }
+    }
+
+    // Please note that static classes are already sealed since no class can inherit from static class.
+    static class TextFileProcessor
+    {
+
+        public delegate void CustomeDelegate(string message);
+        // a static event is used to raise event in static sealed class using a custome delegate.(since its needs string parameter)
+        public static event CustomeDelegate LineRead;
+
+        // below method raises event.
+        public static void RaiseEvent(string message)
+        {
+            if (LineRead != null) LineRead(message);
+        }
+
+        public static List<double> Read(string path)
+        {
+            List<double> doublearr = new List<double>();
+            List<double> doublepar = new List<double>();
+            string readText = File.ReadAllText(path);
+            string[] lines = readText.Split('\n');
+            Console.WriteLine("Nr. Of lines in file: " + lines.Length);
+            foreach (string s in lines)
+            {
+                //Console.WriteLine(s);
+                RaiseEvent(s);
+
+            }
+            foreach (string line in lines)
+            {
+                string[] words = line.Split(',');
+                if (words[0].Equals("Rectangle"))
+                {
+                    double area = Convert.ToDouble(words[1]) * Convert.ToDouble(words[2]);
+                    doublearr.Add(area);
+                }
+                if (words[0].Equals("Circle"))
+                {
+                    double area = Math.PI * Convert.ToDouble(words[1]);
+                    doublearr.Add(area);
+                }
+            }
+            return doublearr;
+        }
+    }
+    class main
+    {
+        static void currentMessageFromFile(string message)
+        {
+            Console.WriteLine("Line Read from file is: {0}", message);
+        }
+        static void Main()
+        {
+            TextFileProcessor.LineRead += new TextFileProcessor.CustomeDelegate(currentMessageFromFile);
+            List<double> doublearr = TextFileProcessor.Read("abc.txt");
+
+            var output =
+                from rad in doublearr
+                orderby rad
+                select rad;
+
+            Console.WriteLine("sorting by area:");
+            foreach (var s in output)
+            {
+                Console.Write(s + ", ");
+            }
+
+            var output2 =
+                from rad in doublearr
+                orderby rad
+                select rad;
+        }
+    }
+
+}
