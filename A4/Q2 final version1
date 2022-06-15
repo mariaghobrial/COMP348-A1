@@ -1,7 +1,9 @@
 using System;
-namespace a4_inter {
+namespace a4_inter
+{
 
-    public interface Shape {
+    public interface Shape
+    {
 
         /*string name()
         {
@@ -23,59 +25,47 @@ namespace A4
 {
     using a4_inter;
     using System;
-   // using A4_ext;
-     public partial class EmptyClass : Shape
+    
+    public partial class Circle : Shape
     {
 
         double r;
-        public EmptyClass()
+        public Circle()
         {
             this.r = 0.0;
         }
 
-        public EmptyClass(double rad) {
+        public Circle(double rad)
+        {
             this.r = rad;
 
         }
 
-        // public static partial EmptyClass Parse(string s) {
-
-        //    string[] val = s.Split(",");
-        //    EmptyClass c = new EmptyClass(Convert.ToDouble(val[1]));
-        //    return c;
-
-        //}
+        
         public override string ToString()
         {
-            EmptyClass e = new EmptyClass();
+            Circle e = new Circle();
             return "Circle , " + r;
 
         }
         public double getPerimeter()
         {
-            double per=2 * 3.14 * r;
-            //Console.WriteLine($"Circle Perimiter is: {per}");
+            double per = 2 * Math.PI * r;
+            
             return per;
 
         }
         public double getArea()
         {
-           //Console.WriteLine("Circle Area is: " (3.14 * r * r));
-            return 3.14 * r * r;
+           
+            return Math.PI * r * r;
         }
         public void Print()
         {
             Console.WriteLine("Circle Print method");
         }
 
-        //public static void Print(this Shape s)
-        //{
-
-        //    Console.WriteLine(s.ToString());
-
-        //}
-
-
+       
 
     } //end of emptyClass
 
@@ -103,13 +93,13 @@ namespace A4
 
         public double getPerimeter()
         {
-            //Console.WriteLine("Rectangle Perimiter is: ", (s1 + s2));
+            
             return s1 + s2;
 
         }
         public double getArea()
         {
-            //Console.WriteLine("Rectangle Area is: ", (s1 * s2));
+            
             return s1 * s2;
         }
 
@@ -118,7 +108,7 @@ namespace A4
             Shape r = new Rectangle();
             // string n = r.name();
 
-            return  "Rectangle , " + s1 + ", " + s2;
+            return "Rectangle , " + s1 + ", " + s2;
 
         }
         public void Print()
@@ -126,42 +116,54 @@ namespace A4
             Console.WriteLine("Rectangle Print method");
         }
 
-        //public static Rectangle Parse(string s)
-        //{
-
-        //    string[] val = s.Split(",");
-        //    Rectangle r = new Rectangle(Convert.ToDouble(val[1]), Convert.ToDouble(val[2]));
-        //    return r;
-
-        //}
+      
 
     }//end of rectangle class
 
 
 
 
-    public class m {
+    public class m
+    {
 
-        static void Main(string[] args) {
-
-            EmptyClass e = new EmptyClass();
-            e = EmptyClass.Parse("Circle,1");
+        static void Main(string[] args)
+        {
+            //Testing parse method
+            Circle e = new Circle();
+            e = Circle.Parse("Circle,1");
             Console.WriteLine(e.ToString());
 
             Rectangle r = new Rectangle();
             r = Rectangle.Parse("Rectangle, 3,2");
             Console.WriteLine(r.ToString());
 
-            EmptyClass e1 = new EmptyClass();
+            //Testing the default constructor
+            Circle e1 = new Circle();
             Console.WriteLine(e1.ToString());
-
-
             Rectangle r1 = new Rectangle();
             Console.WriteLine(r1.ToString());
 
-            EmptyClass e2 = new EmptyClass(3.4);
-           Console.WriteLine($"Area is : {e2.getArea()}" );
-           Console.WriteLine($"Perimeter is : {e2.getArea()}");
+            //Testing area and perimeter methods (Circle and Rectangle)
+            Rectangle r2 = new Rectangle(3.23, 7.9);
+
+            Circle e2 = new Circle(3.4);
+            Console.WriteLine($"Area Circle is : {e2.getArea()}");
+            Console.WriteLine($"Perimeter  Circle is : {e2.getPerimeter()}");
+
+            Console.WriteLine($"Area Rectangle is : {r2.getArea()}");
+            Console.WriteLine($"Perimeter Rectangle is : {r2.getPerimeter()}");
+
+
+            //testing Print method
+            r2.Print();
+            e2.Print();
+
+
+
+
+
+
+
 
 
         }
