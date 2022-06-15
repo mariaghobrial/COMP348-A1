@@ -1,0 +1,145 @@
+using System;
+namespace a4_inter {
+
+    interface Shape {
+
+        public string name()
+        {
+            return this.GetType().Name;
+            // Console.WriteLine(this.GetType().Name);
+
+        }
+
+        void getPerimeter();
+        void getArea();
+    }
+
+
+
+}
+
+namespace A4
+{
+    using a4_inter;
+    using System;
+    public class EmptyClass : Shape
+    {
+
+        double r;
+        public EmptyClass()
+        {
+            this.r = 0.0;
+        }
+
+        public EmptyClass(double rad) {
+            this.r = rad;
+
+        }
+
+        public static EmptyClass Parse(string s) {
+
+            string[] val = s.Split(",");
+            EmptyClass c = new EmptyClass(Convert.ToDouble(val[1]));
+            return c;
+
+        }
+        public override string ToString()
+        {
+            EmptyClass e = new EmptyClass();
+            return "Circle , " + r;
+
+        }
+        public void getPerimeter()
+        {
+            Console.WriteLine("Circle Perimiter is: ", (2 * 3.14 * r));
+
+        }
+        public void getArea()
+        {
+            Console.WriteLine("Circle Area is: ", (3.14 * r * r));
+        }
+
+
+
+    } //end of emptyClass
+
+    public class Rectangle : Shape
+    {
+
+        double s1;
+        double s2;
+
+        //Default constructor
+        public Rectangle()
+        {
+            this.s1 = 0.0;
+            this.s2 = 0.0;
+
+        }
+
+        //param constructor
+        public Rectangle(double side1, double side2)
+        {
+            this.s1 = side1;
+            this.s2 = side2;
+        }
+
+
+        public void getPerimeter()
+        {
+            Console.WriteLine("Rectangle Perimiter is: ", (s1 + s2));
+
+        }
+        public void getArea()
+        {
+            Console.WriteLine("Rectangle Area is: ", (s1 * s2));
+        }
+
+        public override string ToString()
+        {
+            Shape r = new Rectangle();
+            // string n = r.name();
+
+            return  r.name()+ " , " + s1 + ", " + s2;
+
+        }
+        public void Print()
+        {
+            Console.WriteLine("Rectangle Print method");
+        }
+
+        public static Rectangle Parse(string s)
+        {
+
+            string[] val = s.Split(",");
+            Rectangle r = new Rectangle(Convert.ToDouble(val[1]), Convert.ToDouble(val[2]));
+            return r;
+
+        }
+
+    }//end of rectangle class
+
+
+
+
+    public class m {
+
+        static void Main(string[] args) {
+
+            EmptyClass e = new EmptyClass();
+            e = EmptyClass.Parse("Circle,1");
+            Console.WriteLine(e.ToString());
+
+            Rectangle r = new Rectangle();
+            r = Rectangle.Parse("Rectangle, 3,2");
+            Console.WriteLine(r.ToString());
+
+
+
+        }
+
+
+
+    }
+
+} //end of namespace a4
