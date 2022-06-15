@@ -26,13 +26,13 @@ namespace A4
     }
 
     //Circle partial class
-    public partial class EmptyClass {
+    public partial class Circle {
 
-        public static  EmptyClass Parse(string s)
+        public static  Circle Parse(string s)
         {
 
             string[] val = s.Split(",");
-            EmptyClass c = new EmptyClass(Convert.ToDouble(val[1]));
+            Circle c = new Circle(Convert.ToDouble(val[1]));
             return c;
 
         }
