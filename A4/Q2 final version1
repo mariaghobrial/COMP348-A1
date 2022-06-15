@@ -3,15 +3,15 @@ namespace a4_inter {
 
     public interface Shape {
 
-        public string name()
+        /*string name()
         {
             return this.GetType().Name;
             // Console.WriteLine(this.GetType().Name);
 
-        }
+        }*/
 
-        void getPerimeter();
-        void getArea();
+        double getPerimeter();
+        double getArea();
         void Print();
     }
 
@@ -51,14 +51,17 @@ namespace A4
             return "Circle , " + r;
 
         }
-        public void getPerimeter()
+        public double getPerimeter()
         {
-            Console.WriteLine("Circle Perimiter is: ", (2 * 3.14 * r));
+            double per=2 * 3.14 * r;
+            //Console.WriteLine($"Circle Perimiter is: {per}");
+            return per;
 
         }
-        public void getArea()
+        public double getArea()
         {
-            Console.WriteLine("Circle Area is: ", (3.14 * r * r));
+           //Console.WriteLine("Circle Area is: " (3.14 * r * r));
+            return 3.14 * r * r;
         }
         public void Print()
         {
@@ -98,14 +101,16 @@ namespace A4
         }
 
 
-        public void getPerimeter()
+        public double getPerimeter()
         {
-            Console.WriteLine("Rectangle Perimiter is: ", (s1 + s2));
+            //Console.WriteLine("Rectangle Perimiter is: ", (s1 + s2));
+            return s1 + s2;
 
         }
-        public void getArea()
+        public double getArea()
         {
-            Console.WriteLine("Rectangle Area is: ", (s1 * s2));
+            //Console.WriteLine("Rectangle Area is: ", (s1 * s2));
+            return s1 * s2;
         }
 
         public override string ToString()
@@ -113,7 +118,7 @@ namespace A4
             Shape r = new Rectangle();
             // string n = r.name();
 
-            return  r.name()+ " , " + s1 + ", " + s2;
+            return  "Rectangle , " + s1 + ", " + s2;
 
         }
         public void Print()
@@ -147,6 +152,16 @@ namespace A4
             r = Rectangle.Parse("Rectangle, 3,2");
             Console.WriteLine(r.ToString());
 
+            EmptyClass e1 = new EmptyClass();
+            Console.WriteLine(e1.ToString());
+
+
+            Rectangle r1 = new Rectangle();
+            Console.WriteLine(r1.ToString());
+
+            EmptyClass e2 = new EmptyClass(3.4);
+           Console.WriteLine($"Area is : {e2.getArea()}" );
+           Console.WriteLine($"Perimeter is : {e2.getArea()}");
 
 
         }
