@@ -1,0 +1,62 @@
+
+namespace A4
+{
+    using System;
+    using a4_inter;
+  
+    public static class Ext
+    {
+        public static void Print(this Shape s)
+        {
+
+            Console.WriteLine(s.ToString());
+
+        }
+
+        public static Rectangle Parse(string s)
+        {
+
+            string[] val = s.Split(",");
+            Rectangle r = new Rectangle(Convert.ToDouble(val[1]), Convert.ToDouble(val[2]));
+            return r;
+
+        }
+
+
+    }
+
+    //Circle partial class
+    public partial class EmptyClass {
+
+        public static  EmptyClass Parse(string s)
+        {
+
+            string[] val = s.Split(",");
+            EmptyClass c = new EmptyClass(Convert.ToDouble(val[1]));
+            return c;
+
+        }
+
+
+
+    }
+
+    //I used partial class method for Rectangle class as well
+    public partial class Rectangle {
+
+        public static Rectangle Parse(string s)
+        {
+
+            string[] val = s.Split(",");
+            Rectangle r = new Rectangle(Convert.ToDouble(val[1]), Convert.ToDouble(val[2]));
+            return r;
+
+        }
+
+
+    }
+
+
+
+
+}
