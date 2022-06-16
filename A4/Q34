@@ -3,24 +3,19 @@ using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 
-
 namespace A4Q3
 {
-    // Creating a custome event , to set the current line read from file to LineRead .
-    public class MyEventArgs : EventArgs
+    public class CustomEventArgs : EventArgs
     {
         public string LineRead { get; set; }
     }
 
-    // Please note that static classes are already sealed since no class can inherit from static class.
     static class TextFileProcessor
     {
+        public delegate void CustomDelegate(string message);
+        public static event CustomDelegate LineRead;
 
-        public delegate void CustomeDelegate(string message);
-        // a static event is used to raise event in static sealed class using a custome delegate.(since its needs string parameter)
-        public static event CustomeDelegate LineRead;
 
-        // below method raises event.
         public static void RaiseEvent(string message)
         {
             if (LineRead != null) LineRead(message);
@@ -30,28 +25,28 @@ namespace A4Q3
         {
             string readText = File.ReadAllText(path);
             string[] lines = readText.Split('\n');
-            Console.WriteLine("Nr. Of lines in file: " + lines.Length);
             foreach (string s in lines)
             {
-                //Console.WriteLine(s);
                 RaiseEvent(s);
-
             }
             return lines;
         }
     }
+    
     class main
     {
-        static void currentMessageFromFile(string message)
+        static void current(string message)
         {
-            Console.WriteLine("Line Read from file is: {0}", message);
+            Console.WriteLine($"Reading line: {message}");
         }
         static void Main()
         {
+            TextFileProcessor.LineRead += new TextFileProcessor.CustomDelegate(current);
+            string[] lines = TextFileProcessor.Read("abc.txt");
+            
+            //Q4
             List<double> doublearr = new List<double>();
             List<double> doubleper = new List<double>();
-            TextFileProcessor.LineRead += new TextFileProcessor.CustomeDelegate(currentMessageFromFile);
-            string[] lines = TextFileProcessor.Read("abc.txt");
             foreach (string line in lines)
             {
                 string[] words = line.Split(',');
@@ -64,7 +59,7 @@ namespace A4Q3
                 }
                 if (words[0].Equals("Circle"))
                 {
-                    double area = Math.PI * Convert.ToDouble(words[1])*Convert.ToDouble(words[1]);
+                    double area = Math.PI * Convert.ToDouble(words[1]) * Convert.ToDouble(words[1]);
                     double per = 2 * Math.PI * Convert.ToDouble(words[1]);
                     doublearr.Add(area);
                     doubleper.Add(per);
@@ -72,9 +67,9 @@ namespace A4Q3
             }
 
             var output =
-                from area in doublearr
-                orderby area
-                select area;
+                    from area in doublearr
+                    orderby area
+                    select area;
 
             Console.WriteLine("\nsorting by area:");
             foreach (var s in output)
@@ -92,7 +87,6 @@ namespace A4Q3
             {
                 Console.Write(s + ", ");
             }
-            //int i = 0;
 
             var group = from line in lines
                         from word in line.Split(',')
@@ -106,33 +100,32 @@ namespace A4Q3
             double rperavg = 0;
             int rcount = 0;
             int shapecount = lines.Length;
-            
+            int nmbofshapes=0;
 
             foreach (var g in group)
             {
                 foreach (var x in g)
                 {
-                    
                     if (x.Contains("Circle"))
                     {
-                        string[] arr=x.Split(',');
-                        careaavg += Math.PI * Convert.ToDouble(arr[1])* Convert.ToDouble(arr[1]);
+                        string[] arr = x.Split(',');
+                        careaavg += Math.PI * Convert.ToDouble(arr[1]) * Convert.ToDouble(arr[1]);
                         cperavg += 2 * Math.PI * Convert.ToDouble(arr[1]);
                         ccount++;
                     }
                     else if (x.Contains("Rectangle"))
                     {
-                        string[] arr2= x.Split(',');
+                        string[] arr2 = x.Split(',');
                         rareaavg += Convert.ToDouble(arr2[1]) * Convert.ToDouble(arr2[2]);
                         rperavg += Convert.ToDouble(arr2[1]) + Convert.ToDouble(arr2[2]);
                         rcount++;
                     }
                 }
+               nmbofshapes++; 
             }
-            
 
             careaavg = careaavg / ccount;
-            cperavg= cperavg / ccount;
+            cperavg = cperavg / ccount;
             rareaavg = rareaavg / rcount;
             rperavg = rperavg / rcount;
 
@@ -141,7 +134,7 @@ namespace A4Q3
             Console.WriteLine($"Rectangle Area Average: {rareaavg}");
             Console.WriteLine($"Rectangle Perimeter Average:  {rperavg}");
             Console.WriteLine($"Total number of shapes in the file: {shapecount}");
-
+            Console.WriteLine($"Total number of types of shapes in the file: {nmbofshapes}");
         }
     }
 
